@@ -90,8 +90,8 @@ class block_groupformation_tracker extends block_base {
 
         $this->content = new stdClass();
         $this->content->text = "Content here";
-        // use lang strings
-        //$this->content->text = get_string('string_identifier', 'block_groupformation_tracker');
+        // Use lang strings.
+        // $this->content->text = get_string('string_identifier', 'block_groupformation_tracker');
 
         if (empty($currentcontext)) {
             return $this->content;

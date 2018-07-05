@@ -24,6 +24,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+require_once($CFG->dirroot . '/blocks/groupformation_tracker/classes/controller/content_controller.php');
+
 class block_groupformation_tracker extends block_base {
 
     /**
@@ -96,6 +98,9 @@ class block_groupformation_tracker extends block_base {
         if (empty($currentcontext)) {
             return $this->content;
         }
+
+        $controller = new gfTracker_content_controller($currentcontext);
+        $this->content = $controller->getContent();
 
         // Here you need to specify the content
 

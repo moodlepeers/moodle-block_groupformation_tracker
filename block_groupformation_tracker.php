@@ -73,6 +73,8 @@ class block_groupformation_tracker extends block_base {
      */
     public function get_content() {
 
+        global $USER;
+
         if ($this->content !== null) {
             return $this->content;
         }
@@ -100,7 +102,7 @@ class block_groupformation_tracker extends block_base {
         }
 
         $controller = new gfTracker_content_controller($currentcontext);
-        $this->content = $controller->getContent();
+        $this->content = $controller->get_content($USER->id);
 
         // Here you need to specify the content
 

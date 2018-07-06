@@ -73,7 +73,7 @@ class block_groupformation_tracker extends block_base {
      */
     public function get_content() {
 
-        global $USER;
+        global $USER, $COURSE;
 
         if ($this->content !== null) {
             return $this->content;
@@ -104,6 +104,11 @@ class block_groupformation_tracker extends block_base {
         $controller = new gfTracker_content_controller($currentcontext);
         $this->content = $controller->get_content($USER->id);
 
+        // With this method you can get all instances in a specific course
+        $gfinstances = groupformation_get_instances($COURSE->id);
+        foreach ($gfinstances as $gfinstance) {
+            var_dump("ID of groupformation instance: ".$gfinstance->id);
+        }
         // Here you need to specify the content
 
         return $this->content;

@@ -101,7 +101,9 @@ class block_groupformation_tracker extends block_base {
             return $this->content;
         }
 
-        $controller = new gfTracker_content_controller($currentcontext);
+        //var_dump($this->page->course);
+
+        $controller = new gfTracker_content_controller($currentcontext, $this->page->course->id);
         $this->content = $controller->get_content($USER->id);
 
         // With this method you can get all instances in a specific course

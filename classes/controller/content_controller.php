@@ -8,28 +8,83 @@ class gfTracker_content_controller{
 
 private $context = null;
 
-public function __construct($context)
+private $courseid = null;
+
+public function __construct($context, $courseid)
 {
     $this->context = $context;
+
+    $this->courseid = $courseid;
 }
 
 public function get_content($userid){
 
+    global $PAGE;
+
     $content = new stdClass();
-    $content->text = "der content";
+    $content->text = "";
     $groupformationid = 6;
+    $gf1 = new stdClass();
+    $gf2 = new stdClass();
+    $gf3 = new stdClass();
+    $gf1->id = 6;
+    $gf2->id = 7;
+    $gf3->id = 8;
+    $gf1->name = "test6";
+    $gf2->name = "test7";
+    $gf3->name = "test8";
+
+    //$gfinstances = array($gf1, $gf2);
+
+    $content->text .= "<div class=\"btn-group btn-group-toggle\" data-toggle=\"buttons\">";
+    $gfinstances = groupformation_get_instances(2);
+
+    //var_dump($PAGE->course);
+    //var_dump($COURSE);
+
+    /*
+    $content->text .= "<p>gf anzahl:</p>";
+    $content->text .= count($gfinstances);
+    $content->text .= "<p>course id:</p>";
+    $content->text .= $COURSE->id;
+    */
+    $first = false;
+    foreach ($gfinstances as $gfinstance) {
+
+        $content->text .= "<label class=\"btn btn-outline-dark";
+        if ($first){
+            $content->text .= " active";
+        }
+        $content->text .= "\">";
+        $content->text .= "<input type=\"radio\" name=\"options\" ";
+        $id = "groupformation";
+        $id .= $gfinstance->id;
+        $content->text .= "id =\"";
+        $content->text .= $id;
+        $content->text .= "\" autocomplete=\"off\"";
+        if ($first) {
+            $content->text .= "checked";
+            $first = false;
+        }
+        $content->text .= ">";
+        $content->text .= $gfinstance->name;
+        $content->text .= "</label>";
+
+
+    }
+    $content->text .= "</div>";
 
     if (has_capability('moodle/block:edit', $this->context)){
-        $content = $this->get_teacher_content($groupformationid);
+        $content->text .= $this->get_teacher_content($groupformationid);
     } else {
-        $content = $this->get_user_content($userid, $groupformationid);
+        $content->text .= $this->get_user_content($userid, $groupformationid);
     }
 
     return $content;
 }
 
 public function get_user_content($userid, $groupformationid){
-    $content = new stdClass();
+    $text = "";
     $activity_state = groupformation_get_activity_state($groupformationid);
     $user_state = groupformation_get_user_state($groupformationid, $userid);
 
@@ -51,7 +106,7 @@ public function get_user_content($userid, $groupformationid){
         case "started":
             switch ($activity_state){
                 case "q_open":
-                    $content->text .= $this->get_user_view_0();
+                    $text .= $this->get_user_view_0();
                     break;
             }
             break;
@@ -73,21 +128,66 @@ public function get_user_content($userid, $groupformationid){
             break;
     }
 
-    return $content;
+    return $text;
 }
 
-public function get_teacher_content(){
-    $content = new stdClass();
-    $content->text = "der content";
-    $content->text = "here is the teacher";
+public function get_teacher_content($groupformationid){
 
-    return $content;
+    $text = "";
+    $activity_state = groupformation_get_activity_state($groupformationid);
+
+    switch ($activity_state){
+        case "q_open":
+            $text .= $this->get_teacher_view_open();
+            break;
+
+        case "q_close":
+
+            break;
+
+        case "gf_started":
+
+            break;
+
+        case "gf_aborted":
+
+            break;
+
+        case "gf_done":
+
+            break;
+
+        case "ga_started":
+
+            break;
+
+        case "ga_done":
+
+            break;
+
+        case "q_reopened":
+
+            break;
+    }
+
+    return $text;
 }
+
+public function get_teacher_view_open(){
+
+    $text = "<h3><span class=\"badge badge-pill badge-success\">open</span></h3>";
+    $text .= "<br><br>";
+    $text .= "<a href=\"#\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">close questionnaire</a>";
+
+
+    return $text;
+}
+
 public function get_user_view_0(){
 
     $text = "<h3><span class=\"badge badge-pill badge-success\">open</span></h3>";
     $text .= "<br><br>";
-    $text .= "<button type=\"button\" class=\"btn btn-outline-primary\">go to questionnaire</button>";
+    $text .= "<a href=\"#\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">go to questionnaire</a>";
 
 
     return $text;

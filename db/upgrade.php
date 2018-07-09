@@ -34,5 +34,20 @@ function xmldb_block_groupformation_tracker_upgrade($oldversion) {
     global $DB;
     $dbman = $DB->get_manager(); // Loads ddl manager and xmldb classes.
 
+    if ($oldversion < 2018070900) {
+
+        // Define field groupformationid to be added to block_groupformation_tracker.
+        $table = new xmldb_table('block_groupformation_tracker');
+        $field = new xmldb_field('groupformationid', XMLDB_TYPE_INTEGER, '20', null, null, null, null, 'courseid');
+
+        // Conditionally launch add field groupformationid.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Groupformation_tracker savepoint reached.
+        upgrade_block_savepoint(true, 2018070900, 'groupformation_tracker');
+    }
+
     return true;
 }

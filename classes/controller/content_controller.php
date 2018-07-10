@@ -51,13 +51,13 @@ public function get_content($userid){
     $first = false;
     foreach ($gfinstances as $gfinstance) {
 
-        $content->text .= "<label class=\"btn btn-outline-dark";
+        $content->text .= "<label class=\"btn btn-outline-primary";
         if ($first){
             $content->text .= " active";
         }
         $content->text .= "\">";
         $content->text .= "<input type=\"radio\" name=\"options\" ";
-        $id = "groupformation";
+        $id = "groupformation_tracker_instance";
         $id .= $gfinstance->id;
         $content->text .= "id =\"";
         $content->text .= $id;
@@ -66,7 +66,7 @@ public function get_content($userid){
             $content->text .= "checked";
             $first = false;
         }
-        $content->text .= ">";
+        $content->text .= "onclick=\"dropdown_click()\">";
         $content->text .= $gfinstance->name;
         $content->text .= "</label>";
 
@@ -74,11 +74,20 @@ public function get_content($userid){
     }
     $content->text .= "</div>";
 
+    $content->text .= "<div id=\"groupformation_tracker_dropdown_content\">";
     if (has_capability('moodle/block:edit', $this->context)){
-        $content->text .= $this->get_teacher_content($groupformationid);
+        foreach ($gfinstances as $gfinstance){
+            $content->text .= "<div id=\"groupformation_tracker_dropdown_content";
+            $content->text .= $gfinstance->id;
+            $content->text .= "\" style=\"display: block\">";
+            $content->text .= $this->get_teacher_content($gfinstance->id);
+            $content->text .= "</div>";
+        }
     } else {
         $content->text .= $this->get_user_content($userid, $groupformationid);
     }
+    $content->text .= "</div>";
+    //var_dump($content->text);
 
     return $content;
 }
@@ -175,8 +184,19 @@ public function get_teacher_content($groupformationid){
 
 public function get_teacher_view_open(){
 
+    $number_of_students = 100;
+    $students_ready = 60;
+    $progress = ($students_ready/$number_of_students)*100;
     $text = "<h3><span class=\"badge badge-pill badge-success\">open</span></h3>";
-    $text .= "<br><br>";
+    $text .= "<br>";
+    $text .= "<div class=\"progress\"><div class=\"progress-bar progress-bar-striped progress-bar-animated\" role=\"progressbar\" aria-valuenow=\"";
+    $text .= $progress;
+    $text .= "\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: ";
+    $text .= $progress;
+    $text .= "%\">";
+    $text .= $progress;
+    $text .= "%</div></div>";
+    $text .= "<br>";
     $text .= "<a href=\"#\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">close questionnaire</a>";
 
 

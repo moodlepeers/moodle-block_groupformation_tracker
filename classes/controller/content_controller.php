@@ -144,14 +144,15 @@ public function get_teacher_content($groupformationid){
 
     $text = "";
     $activity_state = groupformation_get_activity_state($groupformationid);
+    //$text .= $activity_state;
 
     switch ($activity_state){
         case "q_open":
             $text .= $this->get_teacher_view_open();
             break;
 
-        case "q_close":
-
+        case "q_closed":
+            $text .= $this->get_teacher_view_closed();
             break;
 
         case "gf_started":
@@ -198,6 +199,18 @@ public function get_teacher_view_open(){
     $text .= "%</div></div>";
     $text .= "<br>";
     $text .= "<a href=\"#\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">close questionnaire</a>";
+
+
+    return $text;
+}
+
+public function get_teacher_view_closed(){
+
+    $text = "<h3><span class=\"badge badge-pill badge-success\">open</span></h3>";
+    $text .= "<br>";
+    $text .= "<a href=\"#\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">open questionnaire</a>";
+    $text .= "<br><br>";
+    $text .= "<a href=\"#\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">go to groupformation</a>";
 
 
     return $text;

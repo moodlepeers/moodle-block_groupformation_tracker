@@ -118,11 +118,11 @@ class block_groupformation_tracker extends block_base {
 
     public function applicable_formats() {
         return array('all' => false,
-                     'site' => true,
-                     'site-index' => true,
+                     'site' => false,
+                     'site-index' => false,
                      'course-view' => true,
                      'course-view-social' => false,
-                     'mod' => true,
+                     'mod' => false,
                      'mod-quiz' => false);
     }
 

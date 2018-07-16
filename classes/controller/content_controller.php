@@ -4,6 +4,9 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot . '/mod/groupformation/externallib.php');
 
+require_once($CFG->dirroot . '/blocks/groupformation_tracker/classes/controller/teacher_content_controller.php');
+require_once($CFG->dirroot . '/blocks/groupformation_tracker/classes/controller/user_content_controller.php');
+
 class gfTracker_content_controller{
 
 private $context = null;
@@ -21,33 +24,17 @@ public function get_content($userid){
 
     global $PAGE;
 
+
     $content = new stdClass();
     $content->text = "";
-    $groupformationid = 6;
-    $gf1 = new stdClass();
-    $gf2 = new stdClass();
-    $gf3 = new stdClass();
-    $gf1->id = 6;
-    $gf2->id = 7;
-    $gf3->id = 8;
-    $gf1->name = "test6";
-    $gf2->name = "test7";
-    $gf3->name = "test8";
+    $gfinstances = groupformation_get_instances($this->courseid);
 
     //$gfinstances = array($gf1, $gf2);
 
-    $content->text .= "<div class=\"btn-group btn-group-toggle\" data-toggle=\"buttons\">";
-    $gfinstances = groupformation_get_instances(2);
-
-    //var_dump($PAGE->course);
-    //var_dump($COURSE);
-
     /*
-    $content->text .= "<p>gf anzahl:</p>";
-    $content->text .= count($gfinstances);
-    $content->text .= "<p>course id:</p>";
-    $content->text .= $COURSE->id;
-    */
+    //menu to choose the groupformation
+    $content->text .= "<div class=\"btn-group btn-group-toggle\" data-toggle=\"buttons\">";
+    $gfinstances = groupformation_get_instances($this->courseid);
     $first = false;
     foreach ($gfinstances as $gfinstance) {
 
@@ -73,9 +60,11 @@ public function get_content($userid){
 
     }
     $content->text .= "</div>";
+    */
 
     $content->text .= "<div id=\"groupformation_tracker_dropdown_content\">";
     if (has_capability('moodle/block:edit', $this->context)){
+        /*
         foreach ($gfinstances as $gfinstance){
             $content->text .= "<div id=\"groupformation_tracker_dropdown_content";
             $content->text .= $gfinstance->id;
@@ -83,219 +72,28 @@ public function get_content($userid){
             $content->text .= $this->get_teacher_content($gfinstance->id);
             $content->text .= "</div>";
         }
+        */
+        $controller = new gfTracker_teacher_content_controller($gfinstances[3]);
+        $content->text .= $controller->get_content();
+
     } else {
-        $content->text .= $this->get_user_content($userid, $groupformationid);
+        /*
+        foreach ($gfinstances as $gfinstance){
+            $content->text .= "<div id=\"groupformation_tracker_dropdown_content";
+            $content->text .= $gfinstance->id;
+            $content->text .= "\" style=\"display: block\">";
+            $content->text .= $this->get_user_content($userid, $gfinstance->id);
+            $content->text .= "</div>";
+        }
+        */
+        $controller = new gfTracker_user_content_controller($gfinstances[3],$userid);
+        $content->text = $controller->get_content();
+
     }
     $content->text .= "</div>";
     //var_dump($content->text);
 
     return $content;
-}
-
-public function get_user_content($userid, $groupformationid){
-    $text = "";
-    $activity_state = groupformation_get_activity_state($groupformationid);
-    $user_state = groupformation_get_user_state($groupformationid, $userid);
-
-    /*
-    $content->text = "der content";
-    $content->text = "here is the student ";
-    $content->text .= $userid;
-
-    $content->text .= "<br>";
-    $content->text .= "current activityState: ";
-    $content->text .= $activity_state;
-
-    $content->text .= "<br>";
-    $content->text .= "current userState: ";
-    $content->text .= $user_state;
-    */
-
-    switch ($user_state){
-        case "started":
-            switch ($activity_state){
-                case "q_open":
-                    $text .= $this->get_user_view_0();
-                    break;
-            }
-            break;
-
-        case "consent_given":
-
-            break;
-
-        case "p_code_given":
-
-            break;
-
-        case "answering":
-
-            break;
-
-        case "submitted":
-
-            break;
-    }
-
-    return $text;
-}
-
-public function get_teacher_content($groupformationid){
-
-    $text = "";
-    $activity_state = groupformation_get_activity_state($groupformationid);
-    $text .= $activity_state;
-    $text .= $groupformationid;
-
-    switch ($activity_state){
-        case "q_open":
-            $text .= $this->get_teacher_view_open();
-            break;
-
-        case "q_closed":
-            $text .= $this->get_teacher_view_closed();
-            break;
-
-        case "gf_started":
-            $text .= $this->get_teacher_view_gf_started();
-            break;
-
-        case "gf_aborted":
-            $text .= $this->get_teacher_view_gf_aborted();
-            break;
-
-        case "gf_done":
-            $text .= $this->get_teacher_view_gf_done();
-            break;
-
-        case "ga_started":
-            $text .= $this->get_teacher_view_ga_started();
-            break;
-
-        case "ga_done":
-            $text .= $this->get_teacher_view_ga_done();
-            break;
-
-        case "q_reopened":
-            $text .= $this->get_teacher_view_reopened();
-            break;
-    }
-
-    return $text;
-}
-
-public function get_teacher_view_open(){
-
-    $number_of_students = 100;
-    $students_ready = 60;
-    $progress = ($students_ready/$number_of_students)*100;
-    $text = "<h3><span class=\"badge badge-pill badge-success\">open</span></h3>";
-    $text .= "<br>";
-    $text .= "<div class=\"progress\"><div class=\"progress-bar progress-bar-striped progress-bar-animated\" role=\"progressbar\" aria-valuenow=\"";
-    $text .= $progress;
-    $text .= "\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: ";
-    $text .= $progress;
-    $text .= "%\">";
-    $text .= $progress;
-    $text .= "%</div></div>";
-    $text .= "<br>";
-    $text .= "<a href=\"#\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">close questionnaire</a>";
-
-
-    return $text;
-}
-
-public function get_teacher_view_closed(){
-
-    $text = "<h3><span class=\"badge badge-pill badge-danger\">closed</span></h3>";
-    $text .= "<br>";
-    $text .= "<a href=\"#\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">open questionnaire</a>";
-    $text .= "<br><br>";
-    $text .= "<a href=\"#\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">go to groupformation</a>";
-
-
-    return $text;
-}
-
-public function get_teacher_view_gf_started(){
-
-    $text = "<h3><span class=\"badge badge-pill badge-danger\">closed</span></h3>";
-    $text .= "<br>";
-    $text .= "<p>Please wait...<br>This process may take 2-5 min</p>";
-
-    return $text;
-}
-
-public function get_teacher_view_gf_aborted(){
-
-    $text = "<h3><span class=\"badge badge-pill badge-danger\">closed</span></h3>";
-    $text .= "<h3><span class=\"badge badge-pill badge-danger\">GF aborted</span></h3>";
-    $text .= "<br>";
-    $text .= "<a href=\"#\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">reset</a>";
-
-    return $text;
-}
-
-public function get_teacher_view_gf_done(){
-
-    $text = "<h3><span class=\"badge badge-pill badge-success\">GF generated</span></h3>";
-    $text .= "<br><br>";
-    $text .= "<a href=\"#\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">go to results</a>";
-
-    return $text;
-}
-
-public function get_teacher_view_ga_started(){
-
-    $text = "<h3><span class=\"badge badge-warning\">forming groups</span></h3>";
-    $text .= "<br>";
-    $text .= "<p>Please wait...</p>";
-
-    return $text;
-}
-
-public function get_teacher_view_ga_done(){
-
-    $text = "<h3><span class=\"badge badge-pill badge-danger\">groups adapted</span></h3>";
-    $text .= "<br>";
-    $text .= "<a href=\"#\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">delete groups</a>";
-    $text .= "<br><br>";
-    $text .= "<a href=\"#\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">reopen questionnaire</a>";
-
-
-    return $text;
-}
-
-public function get_teacher_view_reopened(){
-
-    $number_of_students = 100;
-    $students_ready = 60;
-    $progress = ($students_ready/$number_of_students)*100;
-    $text = "<h3><span class=\"badge badge-pill badge-success\">reopened</span></h3>";
-    $text .= "<br>";
-    $text .= "<div class=\"progress\"><div class=\"progress-bar progress-bar-striped progress-bar-animated\" role=\"progressbar\" aria-valuenow=\"";
-    $text .= $progress;
-    $text .= "\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: ";
-    $text .= $progress;
-    $text .= "%\">";
-    $text .= $progress;
-    $text .= "%</div></div>";
-    $text .= "<br>";
-    $text .= "<a href=\"#\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">close questionnaire</a>";
-
-
-    return $text;
-}
-
-public function get_user_view_0(){
-
-    $text = "<h3><span class=\"badge badge-pill badge-success\">open</span></h3>";
-    $text .= "<br><br>";
-    $text .= "<a href=\"#\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">go to questionnaire</a>";
-
-
-    return $text;
-
 }
 
 }

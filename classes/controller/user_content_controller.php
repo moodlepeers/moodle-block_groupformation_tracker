@@ -70,7 +70,7 @@ class gfTracker_user_content_controller{
 
     public function content_started_open(){
 
-        $text = "<h3><span class=\"badge badge-pill badge-success\">open</span></h3>";
+        $text = "<h6><span class=\"badge badge-pill badge-success\">open</span></h6>";
         $text .= "<br><br>";
         $text .= "<a href=\"#\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">go to questionnaire</a>";
 

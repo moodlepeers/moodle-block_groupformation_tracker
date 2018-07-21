@@ -75,7 +75,7 @@ class gfTracker_teacher_content_controller{
         $text .= $progress;
         $text .= "%</div></div>";
         $text .= "<br>";
-        $text .= "<a href=\"#\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">close questionnaire</a>";
+        $text .= "<a href=\"#\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">Close questionnaire</a>";
 
 
         return $text;
@@ -85,9 +85,9 @@ class gfTracker_teacher_content_controller{
 
         $text = $this->state_badge("closed");
         $text .= "<br>";
-        $text .= "<a href=\"#\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">open questionnaire</a>";
+        $text .= "<a href=\"#\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">Open Questionnaire</a>";
         $text .= "<br><br>";
-        $text .= "<a href=\"#\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">go to groupformation</a>";
+        $text .= "<a href=\"#\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">Go to the Activity</a>";
 
 
         return $text;
@@ -95,9 +95,9 @@ class gfTracker_teacher_content_controller{
 
     public function content_gf_started(){
 
-        $text = $this->state_badge("closed");
+        $text = $this->state_badge("gf_started");
         $text .= "<br>";
-        $text .= "<p>Group formation is in progress <br>Please wait...<br>This process may take 2-5 min</p>";
+        $text .= "<p>Group formation is in progress.<br>This process may take 2-5 min.</p>";
 
         return $text;
     }
@@ -114,7 +114,7 @@ class gfTracker_teacher_content_controller{
     public function content_gf_done(){
 
         $text = $this->state_badge("gf_done");
-        $text .= "<br><br>";
+        $text .= "<br>";
         $text .= "<a href=\"#\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">go to results</a>";
 
         return $text;
@@ -123,8 +123,8 @@ class gfTracker_teacher_content_controller{
     public function content_ga_started(){
 
         $text = $this->state_badge("ga_started");
-        $text .= "<br>";
-        $text .= "<p>Please wait...</p>";
+        $text .= "";
+        $text .= "<p>Group adoption is in progress.<br>This process may take 2-5 min.</p>";
 
         return $text;
     }
@@ -132,11 +132,11 @@ class gfTracker_teacher_content_controller{
     public function content_ga_done(){
 
         $text = $this->state_badge("ga_done");
-        $text .= "<br>";
-        $text .= "<a href=\"#\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">delete groups</a>";
+        $text .= "<p>";
+        $text .= "<a href=\"#\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">Delete Groups</a>";
         $text .= "<br><br>";
-        $text .= "<a href=\"#\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">reopen questionnaire</a>";
-
+        $text .= "<a href=\"#\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">Re-open Questionnaire</a>";
+        $text .= "</p>";
 
         return $text;
     }
@@ -163,42 +163,46 @@ class gfTracker_teacher_content_controller{
 
     public function state_badge($state_type){
         $text = "";
-        $text .= "<h5>State: ";
+        $text .= "<h6>State: ";
         switch ($state_type){
             case "open":
-                $text .= "<span class=\"badge badge-pill badge-success\"><h4>open</h4></span><br>";
+                $text .= "<span class=\"badge badge-pill badge-success\"><b>Questionnaire open</b></span><br>";
                 break;
 
             case "closed":
-                $text .= "<span class=\"badge badge-pill badge-danger\"><h4>closed</h4></span><br>";
+                $text .= "<span class=\"badge badge-pill badge-danger\"><b>Questionnaire closed</b></span><br>";
+                break;
+
+            case "gf_started":
+                $text .= "<span class=\"badge badge-pill badge-warning\"><b>Formation started</b></span><br>";
                 break;
 
             case "gf_aborted":
-                $text .= "<span class=\"badge badge-pill badge-danger\"><h4>Groupformation aborted</h4></span><br>";
+                $text .= "<span class=\"badge badge-pill badge-danger\"><b>Formation aborted</b></span><br>";
                 break;
 
             case "gf_done":
-                $text .= "<span class=\"badge badge-pill badge-success\"><h4>Groupformation generated</h4></span><br>";
+                $text .= "<span class=\"badge badge-pill badge-success\"><b>Groups generated</b></span><br>";
                 break;
 
             case "ga_started":
-                $text .= "<span class=\"badge badge-pill badge-warning\"><h4>forming groups</h4></span><br>";
+                $text .= "<span class=\"badge badge-pill badge-warning\"><b>Building groups</b></span><br>";
                 break;
 
             case "ga_done":
-                $text .= "<span class=\"badge badge-pill badge-success\"><h4>groups adapted</h4></span><br>";
+                $text .= "<span class=\"badge badge-pill badge-success\"><b>Groups built</b></span><br>";
                 break;
 
             case "reopened":
-                $text .= "<span class=\"badge badge-pill badge-success\"><h4>reopened</h4></span><br>";
+                $text .= "<span class=\"badge badge-pill badge-success\"><b>Questionnaire re-opened</b></span><br>";
                 break;
 
             default:
-                $text .= "<span class=\"badge badge-pill badge-danger\"><h4>non existing state</h4></span><br>";
+                $text .= "<span class=\"badge badge-pill badge-danger\"><b>non existing state</b></span><br>";
                 break;
         }
 
-        $text .= "</h5>";
+        $text .= "</h6>";
 
         return $text;
     }

@@ -13,17 +13,22 @@ private $context = null;
 
 private $courseid = null;
 
-public function __construct($context, $courseid)
+private $groupformationid = null;
+
+public function __construct($context, $courseid, $groupformationid)
 {
     $this->context = $context;
 
     $this->courseid = $courseid;
+
+    $this->groupformationid = $groupformationid;
 }
 
 public function get_content($userid){
 
     global $PAGE;
 
+    $gfinstance = groupformation_get_instance_by_id($this->groupformationid);
 
     $content = new stdClass();
     $content->text = "";
@@ -62,7 +67,7 @@ public function get_content($userid){
     $content->text .= "</div>";
     */
 
-    $content->text .= "<div id=\"groupformation_tracker_dropdown_content\">";
+    //$content->text .= "<div id=\"groupformation_tracker_dropdown_content\">";
     if (has_capability('moodle/block:edit', $this->context)){
         /*
         foreach ($gfinstances as $gfinstance){
@@ -73,7 +78,7 @@ public function get_content($userid){
             $content->text .= "</div>";
         }
         */
-        $controller = new gfTracker_teacher_content_controller($gfinstances[3]);
+        $controller = new gfTracker_teacher_content_controller($gfinstance);
         $content->text .= $controller->get_content();
 
     } else {
@@ -86,11 +91,11 @@ public function get_content($userid){
             $content->text .= "</div>";
         }
         */
-        $controller = new gfTracker_user_content_controller($gfinstances[3],$userid);
+        $controller = new gfTracker_user_content_controller($gfinstance,$userid);
         $content->text = $controller->get_content();
 
     }
-    $content->text .= "</div>";
+    //$content->text .= "</div>";
     //var_dump($content->text);
 
     return $content;

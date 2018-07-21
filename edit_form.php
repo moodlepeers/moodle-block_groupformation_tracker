@@ -27,4 +27,20 @@ class block_groupformation_tracker_edit_form extends block_edit_form {
 
     // This class in mandatory for block plugin usage.
 
+    function specific_definition($mform) {
+
+        $mform->addElement('header', 'header', 'Header');
+
+        $instances = groupformation_get_instances($this->page->course->id);
+
+        $groupformationids = array();
+        foreach ($instances as $instance) {
+            $groupformationids[$instance->id] = $instance->name;
+        }
+
+        $mform->addElement('select', 'config_groupformationid', 'Groupformationids', $groupformationids);
+
+        //parent::definition();
+    }
+
 }

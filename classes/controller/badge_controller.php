@@ -44,6 +44,10 @@ class gfTracker_badge_controller{
                 $text .= "<span class=\"badge badge-pill badge-success\"><b>Questionnaire re-opened</b></span><br>";
                 break;
 
+            case "submitted":
+                $text .= "<span class=\"badge badge-pill badge-warning\"><b>Submitted</b></span><br>";
+                break;
+
             default:
                 $text .= "<span class=\"badge badge-pill badge-danger\"><b>non existing state</b></span><br>";
                 break;
@@ -52,5 +56,80 @@ class gfTracker_badge_controller{
         $text .= "</h6>";
 
         return $text;
+    }
+
+    public function get_close_questionnaire_button($groupformationcm){
+
+        $text = "<a href=\"/mod/groupformation/analysis_view.php?id=";
+        $text .= $groupformationcm;
+        $text .= "&do_show=analysis\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">Close questionnaire</a>";
+
+        return $text;
+    }
+
+    public function get_open_questionnaire_button($groupformationcm){
+
+        $text = "<a href=\"/mod/groupformation/analysis_view.php?id=";
+        $text .= $groupformationcm;
+        $text .= "&do_show=analysis\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">Open Questionnaire</a>";
+
+        return $text;
+    }
+
+    public function get_reopen_questionnaire_button($groupformationcm){
+
+        $text = "<a href=\"/mod/groupformation/analysis_view.php?id=";
+        $text .= $groupformationcm;
+        $text .= "&do_show=analysis\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">Re-open Questionnaire</a>";
+
+        return $text;
+    }
+
+    public function get_go_to_questionnaire_button($groupformationcm){
+
+        $text = "<a href=\"/mod/groupformation/view.php?id=";
+        $text .= $groupformationcm;
+        $text .= "\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">go to questionnaire</a>";
+
+        return $text;
+    }
+
+    public function get_go_to_questionnaire_answering_button($groupformationcm){
+
+        //link muss noch angepasst werden. bisher nur anfang questionnaire
+        $text = "<a href=\"/mod/groupformation/questionnaire_view.php?id=";
+        $text .= $groupformationcm;
+        $text .= "&direction=1\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">go to questionnaire</a>";
+
+        return $text;
+    }
+
+    public function get_see_your_answers_button($groupformationcm){
+
+        $text = "<a href=\"/mod/groupformation/questionnaire_view.php?id=";
+        $text .= $groupformationcm;
+        $text .= "&direction=1\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">See your answers</a>";
+
+        return $text;
+    }
+
+    public function get_see_evaluation_button($groupformationcm){
+
+        $text = "<a href=\"/mod/groupformation/evaluation_view.php?id=";
+        $text .= $groupformationcm;
+        $text .= "&do_show=evaluation\" class=\"btn btn-outline-primary\" id=\"evaluation\" role=\"button\" aria-pressed=\"true\">See Evaluation</a>";
+        //var_dump($text);
+
+        return $text;
+    }
+
+    public function get_progressbar($percent) {
+        $s = '<div class="progress">';
+        $s .= '    <div class="questionaire_progress-bar" role="progressbar" aria-valuenow="' . $percent .
+            '" aria-valuemin="0" aria-valuemax="100" style="width:' . $percent . '%">';
+        $s .= '    </div>';
+        $s .= '</div>';
+
+        return $s;
     }
 }

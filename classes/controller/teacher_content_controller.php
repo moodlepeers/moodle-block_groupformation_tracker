@@ -92,9 +92,7 @@ class gfTracker_teacher_content_controller{
         $text .= $progress;
         $text .= "%</div></div>";
         $text .= "<br>";
-        $text .= "<a href=\"/mod/groupformation/analysis_view.php?id=";
-        $text .= $this->groupformationcm;
-        $text .= "&do_show=analysis\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">Close questionnaire</a>";
+        $text .= $this->badge_controller->get_close_questionnaire_button($this->groupformationcm);
 
 
         return $text;
@@ -104,9 +102,7 @@ class gfTracker_teacher_content_controller{
 
         $text = $this->badge_controller->state_badge("closed");
         $text .= "<br>";
-        $text .= "<a href=\"/mod/groupformation/analysis_view.php?id=";
-        $text .= $this->groupformationcm;
-        $text .= "&do_show=analysis\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">Open Questionnaire</a>";
+        $text .= $this->badge_controller->get_open_questionnaire_button($this->groupformationcm);
         $text .= "<br><br>";
         $text .= "<a href=\"/mod/groupformation/grouping_view.php?id=";
         $text .= $this->groupformationcm;
@@ -164,9 +160,7 @@ class gfTracker_teacher_content_controller{
         $text .= $this->groupformationcm;
         $text .= "&do_show=grouping\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">Delete Groups</a>";
         $text .= "<br><br>";
-        $text .= "<a href=\"/mod/groupformation/analysis_view.php?id=";
-        $text .= $this->groupformationcm;
-        $text .= "&do_show=analysis\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">Re-open Questionnaire</a>";
+        $text .= $this->badge_controller->get_reopen_questionnaire_button($this->groupformationcm);
         $text .= "</p>";
 
         return $text;
@@ -186,9 +180,7 @@ class gfTracker_teacher_content_controller{
         $text .= $progress;
         $text .= "%</div></div>";
         $text .= "<br>";
-        $text .= "<a href=\"/mod/groupformation/analysis_view.php?id=";
-        $text .= $this->groupformationcm;
-        $text .= "&do_show=analysis\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">close questionnaire</a>";
+        $text .= $this->badge_controller->get_close_questionnaire_button($this->groupformationcm);
 
 
         return $text;

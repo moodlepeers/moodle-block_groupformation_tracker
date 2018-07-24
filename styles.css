@@ -1190,6 +1190,11 @@
     align-items: center;
 }
 
+.path-blocks-groupformation_tracker #evaluation{
+    /*testen*/
+    display: none;
+}
+
 .alert {
     max-width: 750px;
 }

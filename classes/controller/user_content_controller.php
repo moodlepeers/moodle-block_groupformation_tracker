@@ -3,10 +3,11 @@
 defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot . '/mod/groupformation/externallib.php');
+require_once($CFG->dirroot . '/blocks/groupformation_tracker/classes/controller/badge_controller.php');
 
 class gfTracker_user_content_controller{
 
-    private $gfinstance = null;
+    private $groupformationid = null;
 
     private $userid = null;
 
@@ -14,15 +15,19 @@ class gfTracker_user_content_controller{
 
     private $activity_state = null;
 
-    public function __construct($gfinstace, $userid)
+    private $badge_controller = null;
+
+    public function __construct($groupformationid, $userid)
     {
-        $this->gfinstance = $gfinstace;
+        $this->groupformationid = $groupformationid;
 
         $this->userid = $userid;
 
-        $this->user_state = groupformation_get_user_state($gfinstace->id, $userid);
+        $this->user_state = groupformation_get_user_state($groupformationid, $userid);
 
-        $this->activity_state = groupformation_get_activity_state($gfinstace->id);
+        $this->activity_state = groupformation_get_activity_state($groupformationid);
+
+        $this->badge_controller = new gfTracker_badge_controller();
     }
 
     public function get_content(){
@@ -30,6 +35,10 @@ class gfTracker_user_content_controller{
         $text .= $this->activity_state;
         $text .= $this->user_state;
 
+        if ($this->groupformationid == null){
+            $text .= "wait until teacher has chosen a groupformation";
+            return $text;
+        }
 
         switch ($this->user_state){
             case "started":
@@ -70,11 +79,12 @@ class gfTracker_user_content_controller{
 
     public function content_started_open(){
 
-        $text = "<h6><span class=\"badge badge-pill badge-success\">open</span></h6>";
+        $text = $this->badge_controller->state_badge("open");
         $text .= "<br><br>";
         $text .= "<a href=\"#\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">go to questionnaire</a>";
 
 
         return $text;
     }
+
 }

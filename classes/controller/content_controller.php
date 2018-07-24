@@ -32,9 +32,10 @@ public function get_content($userid){
 
     $content = new stdClass();
     $content->text = "";
-    $gfinstances = groupformation_get_instances($this->courseid);
 
-    //$gfinstances = array($gf1, $gf2);
+    $content->text .= "Groupformationname: ";
+    $content->text .= $gfinstance->name;
+    $content->text .= "<br>";
 
     /*
     //menu to choose the groupformation
@@ -78,7 +79,7 @@ public function get_content($userid){
             $content->text .= "</div>";
         }
         */
-        $controller = new gfTracker_teacher_content_controller($gfinstance);
+        $controller = new gfTracker_teacher_content_controller($this->groupformationid);
         $content->text .= $controller->get_content();
 
     } else {
@@ -91,8 +92,8 @@ public function get_content($userid){
             $content->text .= "</div>";
         }
         */
-        $controller = new gfTracker_user_content_controller($gfinstance,$userid);
-        $content->text = $controller->get_content();
+        $controller = new gfTracker_user_content_controller($this->groupformationid,$userid);
+        $content->text .= $controller->get_content();
 
     }
     //$content->text .= "</div>";

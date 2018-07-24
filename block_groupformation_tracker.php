@@ -108,7 +108,7 @@ class block_groupformation_tracker extends block_base {
 
         // After configuring the block correctly, you can find the respective groupformationid in the config.
         $gfid = $this->config->groupformationid;
-        // var_dump($gfid);
+        //var_dump($gfid);
         // var_dump(groupformation_get_instance_by_id($gfid));
 
         return $this->content;

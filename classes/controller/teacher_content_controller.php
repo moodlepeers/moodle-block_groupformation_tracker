@@ -12,6 +12,8 @@ class gfTracker_teacher_content_controller{
 
     private $badge_controller = null;
 
+    private $groupformationcm = null;
+
     public function __construct($groupformationid)
     {
         $this->groupformationid = $groupformationid;
@@ -19,6 +21,8 @@ class gfTracker_teacher_content_controller{
         $this->activity_state = groupformation_get_activity_state($groupformationid);
 
         $this->badge_controller = new gfTracker_badge_controller();
+
+        $this->groupformationcm = groupformation_get_cm($groupformationid);
     }
 
     public function get_content(){
@@ -88,7 +92,9 @@ class gfTracker_teacher_content_controller{
         $text .= $progress;
         $text .= "%</div></div>";
         $text .= "<br>";
-        $text .= "<a href=\"#\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">Close questionnaire</a>";
+        $text .= "<a href=\"/mod/groupformation/analysis_view.php?id=";
+        $text .= $this->groupformationcm;
+        $text .= "&do_show=analysis\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">Close questionnaire</a>";
 
 
         return $text;
@@ -98,9 +104,13 @@ class gfTracker_teacher_content_controller{
 
         $text = $this->badge_controller->state_badge("closed");
         $text .= "<br>";
-        $text .= "<a href=\"#\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">Open Questionnaire</a>";
+        $text .= "<a href=\"/mod/groupformation/analysis_view.php?id=";
+        $text .= $this->groupformationcm;
+        $text .= "&do_show=analysis\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">Open Questionnaire</a>";
         $text .= "<br><br>";
-        $text .= "<a href=\"#\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">Go to the Activity</a>";
+        $text .= "<a href=\"/mod/groupformation/grouping_view.php?id=";
+        $text .= $this->groupformationcm;
+        $text .= "&do_show=grouping\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">Go to the Activity</a>";
 
 
         return $text;
@@ -119,7 +129,9 @@ class gfTracker_teacher_content_controller{
 
         $text = $this->badge_controller->state_badge("gf_aborted");
         $text .= "<br>";
-        $text .= "<a href=\"#\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">reset</a>";
+        $text .= "<a href=\"/mod/groupformation/grouping_view.php?id=";
+        $text .= $this->groupformationcm;
+        $text .= "&do_show=grouping\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">reset</a>";
 
         return $text;
     }
@@ -128,7 +140,9 @@ class gfTracker_teacher_content_controller{
 
         $text = $this->badge_controller->state_badge("gf_done");
         $text .= "<br>";
-        $text .= "<a href=\"#\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">go to results</a>";
+        $text .= "<a href=\"/mod/groupformation/grouping_view.php?id=";
+        $text .= $this->groupformationcm;
+        $text .= "&do_show=grouping\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">go to results</a>";
 
         return $text;
     }
@@ -146,9 +160,13 @@ class gfTracker_teacher_content_controller{
 
         $text = $this->badge_controller->state_badge("ga_done");
         $text .= "<p>";
-        $text .= "<a href=\"#\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">Delete Groups</a>";
+        $text .= "<a href=\"/mod/groupformation/grouping_view.php?id=";
+        $text .= $this->groupformationcm;
+        $text .= "&do_show=grouping\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">Delete Groups</a>";
         $text .= "<br><br>";
-        $text .= "<a href=\"#\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">Re-open Questionnaire</a>";
+        $text .= "<a href=\"/mod/groupformation/analysis_view.php?id=";
+        $text .= $this->groupformationcm;
+        $text .= "&do_show=analysis\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">Re-open Questionnaire</a>";
         $text .= "</p>";
 
         return $text;
@@ -168,7 +186,9 @@ class gfTracker_teacher_content_controller{
         $text .= $progress;
         $text .= "%</div></div>";
         $text .= "<br>";
-        $text .= "<a href=\"#\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">close questionnaire</a>";
+        $text .= "<a href=\"/mod/groupformation/analysis_view.php?id=";
+        $text .= $this->groupformationcm;
+        $text .= "&do_show=analysis\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">close questionnaire</a>";
 
 
         return $text;

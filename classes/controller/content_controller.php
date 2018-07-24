@@ -28,14 +28,16 @@ public function get_content($userid){
 
     global $PAGE;
 
-    $gfinstance = groupformation_get_instance_by_id($this->groupformationid);
-
     $content = new stdClass();
     $content->text = "";
 
-    $content->text .= "Groupformationname: ";
-    $content->text .= $gfinstance->name;
-    $content->text .= "<br>";
+    if ($this->groupformationid != null){
+        $gfinstance = groupformation_get_instance_by_id($this->groupformationid);
+        $content->text .= "<h5>";
+        $content->text .= "Groupformationname: ";
+        $content->text .= $gfinstance->name;
+        $content->text .= "</h5>";
+    }
 
     /*
     //menu to choose the groupformation

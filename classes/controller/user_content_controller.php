@@ -313,7 +313,7 @@ class gfTracker_user_content_controller{
 
         $text = $this->badge_controller->state_badge("open");
         $text .= "<br><br>";
-        $text .= $this->badge_controller->get_go_to_questionnaire_button($this->groupformationcm);
+        $text .= $this->badge_controller->get_go_to_questionnaire_button($this->groupformationcm, "Go To Questionnaire");
 
 
         return $text;
@@ -328,7 +328,7 @@ class gfTracker_user_content_controller{
         $text .= "<br>";
         $text .= $this->badge_controller->get_progressbar($progress);
         $text .= "<br>";
-        $text .= $this->badge_controller->get_go_to_questionnaire_answering_button($this->groupformationcm);
+        $text .= $this->badge_controller->get_go_to_questionnaire_answering_button($this->groupformationcm, "Go To Questionnaire");
 
 
         return $text;
@@ -338,7 +338,7 @@ class gfTracker_user_content_controller{
 
         $text = $this->badge_controller->state_badge("submitted");
         $text .= "<br>";
-        $text .= $this->badge_controller->get_see_your_answers_button($this->groupformationcm);
+        $text .= $this->badge_controller->get_go_to_questionnaire_button($this->groupformationcm, "See your Answers");
         $text .= "<br><br>";
         $text .= $this->badge_controller->get_see_evaluation_button($this->groupformationcm);
 

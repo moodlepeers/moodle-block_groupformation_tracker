@@ -87,7 +87,7 @@ class gfTracker_teacher_content_controller{
         $text .= "<p>submitted students:</p>";
         $text .= $this->badge_controller->get_progressbar($progress);
         $text .= "<br>";
-        $text .= $this->badge_controller->get_close_questionnaire_button($this->groupformationcm);//go to activity
+        $text .= $this->badge_controller->get_go_to_overview_button($this->groupformationcm, "Go To Activity");
 
 
         return $text;
@@ -97,11 +97,9 @@ class gfTracker_teacher_content_controller{
 
         $text = $this->badge_controller->state_badge("closed");
         $text .= "<br>";
-        $text .= $this->badge_controller->get_open_questionnaire_button($this->groupformationcm);
+        $text .= $this->badge_controller->get_go_to_overview_button($this->groupformationcm, "Open Questionnaire");
         $text .= "<br><br>";
-        $text .= "<a href=\"/mod/groupformation/grouping_view.php?id=";
-        $text .= $this->groupformationcm;
-        $text .= "&do_show=grouping\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">Go to the Activity</a>";
+        $text .= $this->badge_controller->get_go_to_groupformation_button($this->groupformationcm, "Go to Activity");
 
 
         return $text;
@@ -120,9 +118,7 @@ class gfTracker_teacher_content_controller{
 
         $text = $this->badge_controller->state_badge("gf_aborted");
         $text .= "<br>";
-        $text .= "<a href=\"/mod/groupformation/grouping_view.php?id=";
-        $text .= $this->groupformationcm;
-        $text .= "&do_show=grouping\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">reset</a>";
+        $text .= $this->badge_controller->get_go_to_groupformation_button($this->groupformationcm, "Reset");
 
         return $text;
     }
@@ -131,9 +127,7 @@ class gfTracker_teacher_content_controller{
 
         $text = $this->badge_controller->state_badge("gf_done");
         $text .= "<br>";
-        $text .= "<a href=\"/mod/groupformation/grouping_view.php?id=";
-        $text .= $this->groupformationcm;
-        $text .= "&do_show=grouping\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">go to results</a>";
+        $text .= $this->badge_controller->get_go_to_overview_button($this->groupformationcm, "Go To Result");
 
         return $text;
     }
@@ -151,11 +145,9 @@ class gfTracker_teacher_content_controller{
 
         $text = $this->badge_controller->state_badge("ga_done");
         $text .= "<p>";
-        $text .= "<a href=\"/mod/groupformation/grouping_view.php?id=";
-        $text .= $this->groupformationcm;
-        $text .= "&do_show=grouping\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">Delete Groups</a>";
+        $text .= $this->badge_controller->get_go_to_groupformation_button($this->groupformationcm, "Delete Groups");
         $text .= "<br><br>";
-        $text .= $this->badge_controller->get_reopen_questionnaire_button($this->groupformationcm);
+        $text .= $this->badge_controller->get_go_to_overview_button($this->groupformationcm, "Re-Open Questionnaire");
         $text .= "</p>";
 
         return $text;
@@ -170,7 +162,7 @@ class gfTracker_teacher_content_controller{
         $text .= "<p>submitted students:</p>";
         $text .= $this->badge_controller->get_progressbar($progress);
         $text .= "<br>";
-        $text .= $this->badge_controller->get_close_questionnaire_button($this->groupformationcm);
+        $text .= $this->badge_controller->get_go_to_overview_button($this->groupformationcm, "Close Questionnaire");
 
 
         return $text;

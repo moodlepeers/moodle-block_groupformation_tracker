@@ -20,4 +20,10 @@ class utilities {
         $uri = $CFG->wwwroot . '/user/view.php?id=' . $userid . '&course=' . $courseid;
         return $uri;
     }
+
+    public static function get_link_button($url, $string){
+        $text = "<a href=\"".$url."\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">".$string."</a>";
+
+        return $text;
+    }
 }

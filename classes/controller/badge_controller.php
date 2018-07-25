@@ -2,6 +2,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+require_once($CFG->dirroot . '/blocks/groupformation_tracker/classes/utilities.php');
+use groupformation_tracker\utilities;
+
 class gfTracker_badge_controller{
 
     public function __construct()
@@ -58,33 +61,8 @@ class gfTracker_badge_controller{
         return $text;
     }
 
-    public function get_close_questionnaire_button($groupformationcm){
 
-        $text = "<a href=\"/mod/groupformation/analysis_view.php?id=";
-        $text .= $groupformationcm;
-        $text .= "&do_show=analysis\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">Close questionnaire</a>";
-
-        return $text;
-    }
-
-    public function get_open_questionnaire_button($groupformationcm){
-
-        $text = "<a href=\"/mod/groupformation/analysis_view.php?id=";
-        $text .= $groupformationcm;
-        $text .= "&do_show=analysis\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">Open Questionnaire</a>";
-
-        return $text;
-    }
-
-    public function get_reopen_questionnaire_button($groupformationcm){
-
-        $text = "<a href=\"/mod/groupformation/analysis_view.php?id=";
-        $text .= $groupformationcm;
-        $text .= "&do_show=analysis\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">Re-open Questionnaire</a>";
-
-        return $text;
-    }
-
+    /*
     public function get_go_to_questionnaire_button($groupformationcm){
 
         $text = "<a href=\"/mod/groupformation/view.php?id=";
@@ -93,6 +71,7 @@ class gfTracker_badge_controller{
 
         return $text;
     }
+    */
 
     public function get_go_to_questionnaire_answering_button($groupformationcm){
 
@@ -104,13 +83,24 @@ class gfTracker_badge_controller{
         return $text;
     }
 
-    public function get_see_your_answers_button($groupformationcm){
+    public function get_go_to_questionnaire_button($gfcm, $string){
+        $url = "/mod/groupformation/questionnaire_view.php?id=".$gfcm."&direction=1";
 
-        $text = "<a href=\"/mod/groupformation/questionnaire_view.php?id=";
-        $text .= $groupformationcm;
-        $text .= "&direction=1\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">See your answers</a>";
+        return  utilities::get_link_button($url, $string);
+    }
 
-        return $text;
+
+
+    public function get_go_to_groupformation_button($gfcm, $string){
+        $url = "/mod/groupformation/grouping_view.php?id=".$gfcm."&do_show=grouping";
+
+        return  utilities::get_link_button($url, $string);
+    }
+
+    public function get_go_to_overview_button($gfcm, $string){
+        $url = "/mod/groupformation/analysis_view.php?id=".$gfcm."&do_show=analysis";
+
+        return  utilities::get_link_button($url, $string);
     }
 
     public function get_see_evaluation_button($groupformationcm){
@@ -127,16 +117,16 @@ class gfTracker_badge_controller{
         $s = '<div class="progress">';
         $s .= '    <div style="width:' . $percent . '%;
         height: 100%;
-    font-size: 12px;
-    line-height: 20px;
-    color: #fff;
-    text-align: center;
-    background-color: #18b410;
-    -webkit-box-shadow: inset 0 -1px 0 rgba(0,0,0,.15);
-    box-shadow: inset 0 -1px 0 rgba(0,0,0,.15);
-    -webkit-transition: width .6s ease;
-    -o-transition: width .6s ease;
-    transition: width .6s ease;" class="questionaire_progress-bar" role="progressbar" aria-valuenow="' . $percent .
+        font-size: 12px;
+        line-height: 20px;
+        color: #fff;
+        text-align: center;
+        background-color: #18b410;
+        -webkit-box-shadow: inset 0 -1px 0 rgba(0,0,0,.15);
+        box-shadow: inset 0 -1px 0 rgba(0,0,0,.15);
+        -webkit-transition: width .6s ease;
+        -o-transition: width .6s ease;
+        transition: width .6s ease;" class="questionaire_progress-bar" role="progressbar" aria-valuenow="' . $percent .
             '" aria-valuemin="0" aria-valuemax="100" >';
         $s .= ' '. $percent .' %    </div>';
         $s .= '</div>';

@@ -33,8 +33,8 @@ public function get_content($userid){
 
     if ($this->groupformationid != null){
         $gfinstance = groupformation_get_instance_by_id($this->groupformationid);
+        // TODO Icon hinzufügen
         $content->text .= "<h5>";
-        $content->text .= "Groupformationname: ";
         $content->text .= $gfinstance->name;
         $content->text .= "</h5>";
     }

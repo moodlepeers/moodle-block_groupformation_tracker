@@ -84,15 +84,10 @@ class gfTracker_teacher_content_controller{
         $progress = ($students_ready/$number_of_students)*100;
         $text = $this->badge_controller->state_badge("open");
         $text .= "<br>";
-        $text .= "<div class=\"progress\"><div class=\"progress-bar progress-bar-striped progress-bar-animated\" role=\"progressbar\" aria-valuenow=\"";
-        $text .= $progress;
-        $text .= "\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: ";
-        $text .= $progress;
-        $text .= "%\">";
-        $text .= $progress;
-        $text .= "%</div></div>";
+        $text .= "<p>submitted students:</p>";
+        $text .= $this->badge_controller->get_progressbar($progress);
         $text .= "<br>";
-        $text .= $this->badge_controller->get_close_questionnaire_button($this->groupformationcm);
+        $text .= $this->badge_controller->get_close_questionnaire_button($this->groupformationcm);//go to activity
 
 
         return $text;
@@ -172,13 +167,8 @@ class gfTracker_teacher_content_controller{
         $progress = ($students_ready/$number_of_students)*100;
         $text = $this->badge_controller->state_badge("reopened");
         $text .= "<br>";
-        $text .= "<div class=\"progress\"><div class=\"progress-bar progress-bar-striped progress-bar-animated\" role=\"progressbar\" aria-valuenow=\"";
-        $text .= $progress;
-        $text .= "\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: ";
-        $text .= $progress;
-        $text .= "%\">";
-        $text .= $progress;
-        $text .= "%</div></div>";
+        $text .= "<p>submitted students:</p>";
+        $text .= $this->badge_controller->get_progressbar($progress);
         $text .= "<br>";
         $text .= $this->badge_controller->get_close_questionnaire_button($this->groupformationcm);
 

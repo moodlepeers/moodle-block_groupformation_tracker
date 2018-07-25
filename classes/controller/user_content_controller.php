@@ -4,6 +4,9 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot . '/mod/groupformation/externallib.php');
 require_once($CFG->dirroot . '/blocks/groupformation_tracker/classes/controller/badge_controller.php');
+require_once($CFG->dirroot . '/blocks/groupformation_tracker/classes/utilities.php');
+
+use groupformation_tracker\utilities;
 
 class gfTracker_user_content_controller{
 
@@ -34,15 +37,18 @@ class gfTracker_user_content_controller{
         $this->groupformationcm = groupformation_get_cm($groupformationid);
     }
 
-    public function get_content(){
+    public function get_content()
+    {
         $text = "";
         $text .= $this->activity_state;
         $text .= $this->user_state;
 
-        if ($this->groupformationid == null){
-            $text .= "wait until teacher has chosen a groupformation";
-            return $text;
-        }
+
+        // TODO: zum Testen von ga_done
+        //return $this->content_ga_done();
+        //return $this->content_answering_open();
+
+        // TODO switch nicht mit activity_state!
 
         switch ($this->activity_state){
             case "q_open":
@@ -245,7 +251,7 @@ class gfTracker_user_content_controller{
         return $text;
     }
 
-    public function content_ga_done(){
+    public function content_ga_done2(){
 
         $text = "";
         switch ($this->user_state){
@@ -339,4 +345,42 @@ class gfTracker_user_content_controller{
         return $text;
     }
 
+    public function content_ga_done(){
+        $text = "";
+        // TODO $gfinstance muss ersetzt werden
+        if (groupformation_has_group($this->gfinstance->id, $this->userid)) {
+
+            $text .= "<p>You are in Group: ";
+            $text .= "<b>";
+            $text .= groupformation_get_group_name($this->gfinstance->id, $this->userid);
+            $text .= "</b>";
+            $text .= "</p>";
+
+            $members = groupformation_get_group_members($this->gfinstance->id, $this->userid);
+            if (count($members)>0) {
+                $text .= "<p>Your group members are:";
+                $text .= $this->create_group_member_list($members);
+                $text .= "</p>";
+            } else {
+                $text .= "<p>You are alone in this group.</p>";
+            }
+            $text .= "<a href=\"".utilities::get_activity_url($this->gfinstance->id)."\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">Open Activity</a>";
+        } else {
+            $text .= "<p>";
+            $text .= "You did not answer the questionnaire, hence you are not in a group.";
+            $text .= "</p>";
+        }
+        return $text;
+    }
+
+    public function create_group_member_list($members){
+        $list = '<ul class="list-group">';
+        foreach($members as $memberid => $membername) {
+            $list .= '<li class="list-group-item d-flex justify-content-between align-items-center">';
+            $list .= '<a href="'.utilities::get_user_profile_url($memberid, $this->gfinstance->course).'">'.$membername.'</a>';
+            $list .= '</li>';
+        }
+        $list .= '</ul>';
+        return $list;
+    }
 }

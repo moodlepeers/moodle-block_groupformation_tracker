@@ -313,7 +313,7 @@ class gfTracker_user_content_controller{
 
         $text = $this->badge_controller->state_badge("open");
         $text .= "<br><br>";
-        $text .= $this->badge_controller->get_go_to_questionnaire_button($this->groupformationcm, "Go To Questionnaire");
+        $text .= $this->badge_controller->get_go_to_questionnaire_button($this->groupformationcm, get_string('to_questionnaire', 'block_groupformation_tracker'));
 
 
         return $text;
@@ -328,7 +328,7 @@ class gfTracker_user_content_controller{
         $text .= "<br>";
         $text .= $this->badge_controller->get_progressbar($progress);
         $text .= "<br>";
-        $text .= $this->badge_controller->get_go_to_questionnaire_answering_button($this->groupformationcm, "Go To Questionnaire");
+        $text .= $this->badge_controller->get_go_to_questionnaire_answering_button($this->groupformationcm, get_string('to_questionnaire', 'block_groupformation_tracker'));
 
 
         return $text;
@@ -338,7 +338,7 @@ class gfTracker_user_content_controller{
 
         $text = $this->badge_controller->state_badge("submitted");
         $text .= "<br>";
-        $text .= $this->badge_controller->get_go_to_questionnaire_button($this->groupformationcm, "See your Answers");
+        $text .= $this->badge_controller->get_go_to_questionnaire_button($this->groupformationcm, get_string('see_your_answers', 'block_groupformation_tracker'));
         $text .= "<br><br>";
         $text .= $this->badge_controller->get_see_evaluation_button($this->groupformationcm);
 
@@ -350,7 +350,7 @@ class gfTracker_user_content_controller{
         // TODO $gfinstance muss ersetzt werden
         if (groupformation_has_group($this->gfinstance->id, $this->userid)) {
 
-            $text .= "<p>You are in Group: ";
+            $text .= "<p>".get_string('in_group', 'block_groupformation_tracker');
             $text .= "<b>";
             $text .= groupformation_get_group_name($this->gfinstance->id, $this->userid);
             $text .= "</b>";
@@ -358,16 +358,16 @@ class gfTracker_user_content_controller{
 
             $members = groupformation_get_group_members($this->gfinstance->id, $this->userid);
             if (count($members)>0) {
-                $text .= "<p>Your group members are:";
+                $text .= "<p>".get_string('your_groupmembers', 'block_groupformation_tracker');
                 $text .= $this->create_group_member_list($members);
                 $text .= "</p>";
             } else {
-                $text .= "<p>You are alone in this group.</p>";
+                $text .= "<p>".get_string('alone_in_group', 'block_groupformation_tracker')."</p>";
             }
             $text .= "<a href=\"".utilities::get_activity_url($this->gfinstance->id)."\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">Open Activity</a>";
         } else {
             $text .= "<p>";
-            $text .= "You did not answer the questionnaire, hence you are not in a group.";
+            $text .= get_string('did_not_answer', 'block_groupformation_tracker');
             $text .= "</p>";
         }
         return $text;

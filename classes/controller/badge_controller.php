@@ -16,43 +16,43 @@ class gfTracker_badge_controller{
         $text .= "<h6>State: ";
         switch ($state_type){
             case "open":
-                $text .= "<span class=\"badge badge-pill badge-success\"><b>Questionnaire open</b></span><br>";
+                $text .= "<span class=\"badge badge-pill badge-success\"><b>".get_string('open', 'block_groupformation_tracker')."</b></span><br>";
                 break;
 
             case "closed":
-                $text .= "<span class=\"badge badge-pill badge-danger\"><b>Questionnaire closed</b></span><br>";
+                $text .= "<span class=\"badge badge-pill badge-danger\"><b>".get_string('closed', 'block_groupformation_tracker')."</b></span><br>";
                 break;
 
             case "gf_started":
-                $text .= "<span class=\"badge badge-pill badge-warning\"><b>Formation started</b></span><br>";
+                $text .= "<span class=\"badge badge-pill badge-warning\"><b>".get_string('gf_started', 'block_groupformation_tracker')."</b></span><br>";
                 break;
 
             case "gf_aborted":
-                $text .= "<span class=\"badge badge-pill badge-danger\"><b>Formation aborted</b></span><br>";
+                $text .= "<span class=\"badge badge-pill badge-danger\"><b>".get_string('gf_aborted', 'block_groupformation_tracker')."</b></span><br>";
                 break;
 
             case "gf_done":
-                $text .= "<span class=\"badge badge-pill badge-success\"><b>Groups generated</b></span><br>";
+                $text .= "<span class=\"badge badge-pill badge-success\"><b>".get_string('gf_done', 'block_groupformation_tracker')."</b></span><br>";
                 break;
 
             case "ga_started":
-                $text .= "<span class=\"badge badge-pill badge-warning\"><b>Building groups</b></span><br>";
+                $text .= "<span class=\"badge badge-pill badge-warning\"><b>".get_string('ga_started', 'block_groupformation_tracker')."</b></span><br>";
                 break;
 
             case "ga_done":
-                $text .= "<span class=\"badge badge-pill badge-success\"><b>Groups built</b></span><br>";
+                $text .= "<span class=\"badge badge-pill badge-success\"><b>".get_string('ga_done', 'block_groupformation_tracker')."</b></span><br>";
                 break;
 
             case "reopened":
-                $text .= "<span class=\"badge badge-pill badge-success\"><b>Questionnaire re-opened</b></span><br>";
+                $text .= "<span class=\"badge badge-pill badge-success\"><b>".get_string('reopened', 'block_groupformation_tracker')."</b></span><br>";
                 break;
 
             case "submitted":
-                $text .= "<span class=\"badge badge-pill badge-warning\"><b>Submitted</b></span><br>";
+                $text .= "<span class=\"badge badge-pill badge-warning\"><b>".get_string('submitted', 'block_groupformation_tracker')."</b></span><br>";
                 break;
 
             default:
-                $text .= "<span class=\"badge badge-pill badge-danger\"><b>non existing state</b></span><br>";
+                $text .= "<span class=\"badge badge-pill badge-danger\"><b>".get_string('non_ex_state', 'block_groupformation_tracker')."</b></span><br>";
                 break;
         }
 
@@ -78,7 +78,7 @@ class gfTracker_badge_controller{
         //link muss noch angepasst werden. bisher nur anfang questionnaire
         $text = "<a href=\"/mod/groupformation/questionnaire_view.php?id=";
         $text .= $groupformationcm;
-        $text .= "&direction=1\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">go to questionnaire</a>";
+        $text .= "&direction=1\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">".get_string('to_questionnaire', 'block_groupformation_tracker')."</a>";
 
         return $text;
     }
@@ -107,7 +107,7 @@ class gfTracker_badge_controller{
 
         $text = "<a href=\"/mod/groupformation/evaluation_view.php?id=";
         $text .= $groupformationcm;
-        $text .= "&do_show=evaluation\" class=\"btn btn-outline-primary\" id=\"evaluation\" role=\"button\" aria-pressed=\"true\">See Evaluation</a>";
+        $text .= "&do_show=evaluation\" class=\"btn btn-outline-primary\" id=\"evaluation\" role=\"button\" aria-pressed=\"true\">".get_string('see_evaluation', 'block_groupformation_tracker')."</a>";
         //var_dump($text);
 
         return $text;

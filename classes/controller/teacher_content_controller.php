@@ -35,8 +35,9 @@ class gfTracker_teacher_content_controller{
         print_r("activitystate");
         var_dump($this->activity_state);
 
+
         if ($this->groupformationid == null){
-            $text .= "open editing and choose groupformation";
+            $text .= get_string('choosegf', 'block_groupformation_tracker');
             return $text;
         }
 
@@ -84,10 +85,10 @@ class gfTracker_teacher_content_controller{
         $progress = ($students_ready/$number_of_students)*100;
         $text = $this->badge_controller->state_badge("open");
         $text .= "<br>";
-        $text .= "<p>submitted students:</p>";
+        $text .= "<p>".get_string('progressbar_description', 'block_groupformation_tracker')."</p>";
         $text .= $this->badge_controller->get_progressbar($progress);
         $text .= "<br>";
-        $text .= $this->badge_controller->get_go_to_overview_button($this->groupformationcm, "Go To Activity");
+        $text .= $this->badge_controller->get_go_to_overview_button($this->groupformationcm, get_string('go_to_activity', 'block_groupformation_tracker'));
 
 
         return $text;
@@ -97,9 +98,9 @@ class gfTracker_teacher_content_controller{
 
         $text = $this->badge_controller->state_badge("closed");
         $text .= "<br>";
-        $text .= $this->badge_controller->get_go_to_overview_button($this->groupformationcm, "Open Questionnaire");
+        $text .= $this->badge_controller->get_go_to_overview_button($this->groupformationcm, get_string('open_questionnaire', 'block_groupformation_tracker'));
         $text .= "<br><br>";
-        $text .= $this->badge_controller->get_go_to_groupformation_button($this->groupformationcm, "Go to Activity");
+        $text .= $this->badge_controller->get_go_to_groupformation_button($this->groupformationcm, get_string('go_to_activity', 'block_groupformation_tracker'));
 
 
         return $text;
@@ -109,7 +110,7 @@ class gfTracker_teacher_content_controller{
 
         $text = $this->badge_controller->state_badge("gf_started");
         $text .= "<br>";
-        $text .= "<p>Group formation is in progress.<br>This process may take 2-5 min.</p>";
+        $text .= "<p>".get_string('gf_in_progress', 'block_groupformation_tracker')."<br>".get_string('takes_afew_min', 'block_groupformation_tracker')."</p>";
 
         return $text;
     }
@@ -118,7 +119,7 @@ class gfTracker_teacher_content_controller{
 
         $text = $this->badge_controller->state_badge("gf_aborted");
         $text .= "<br>";
-        $text .= $this->badge_controller->get_go_to_groupformation_button($this->groupformationcm, "Reset");
+        $text .= $this->badge_controller->get_go_to_groupformation_button($this->groupformationcm, get_string('reset', 'block_groupformation_tracker'));
 
         return $text;
     }
@@ -127,7 +128,7 @@ class gfTracker_teacher_content_controller{
 
         $text = $this->badge_controller->state_badge("gf_done");
         $text .= "<br>";
-        $text .= $this->badge_controller->get_go_to_overview_button($this->groupformationcm, "Go To Result");
+        $text .= $this->badge_controller->get_go_to_overview_button($this->groupformationcm, get_string('to_results', 'block_groupformation_tracker'));
 
         return $text;
     }
@@ -136,7 +137,7 @@ class gfTracker_teacher_content_controller{
 
         $text = $this->badge_controller->state_badge("ga_started");
         $text .= "";
-        $text .= "<p>Group adoption is in progress.<br>This process may take 2-5 min.</p>";
+        $text .= "<p>".get_string('ga_in_progress', 'block_groupformation_tracker')."<br>".get_string('takes_afew_min', 'block_groupformation_tracker')."</p>";
 
         return $text;
     }
@@ -145,9 +146,9 @@ class gfTracker_teacher_content_controller{
 
         $text = $this->badge_controller->state_badge("ga_done");
         $text .= "<p>";
-        $text .= $this->badge_controller->get_go_to_groupformation_button($this->groupformationcm, "Delete Groups");
+        $text .= $this->badge_controller->get_go_to_groupformation_button($this->groupformationcm, get_string('delete_groups', 'block_groupformation_tracker'));
         $text .= "<br><br>";
-        $text .= $this->badge_controller->get_go_to_overview_button($this->groupformationcm, "Re-Open Questionnaire");
+        $text .= $this->badge_controller->get_go_to_overview_button($this->groupformationcm, get_string('reopen_questionnaire', 'block_groupformation_tracker'));
         $text .= "</p>";
 
         return $text;
@@ -159,10 +160,10 @@ class gfTracker_teacher_content_controller{
         $progress = ($students_ready/$number_of_students)*100;
         $text = $this->badge_controller->state_badge("reopened");
         $text .= "<br>";
-        $text .= "<p>submitted students:</p>";
+        $text .= "<p>".get_string('progressbar_description', 'block_groupformation_tracker')."</p>";
         $text .= $this->badge_controller->get_progressbar($progress);
         $text .= "<br>";
-        $text .= $this->badge_controller->get_go_to_overview_button($this->groupformationcm, "Close Questionnaire");
+        $text .= $this->badge_controller->get_go_to_overview_button($this->groupformationcm, get_string('go_to_activity', 'block_groupformation_tracker'));
 
 
         return $text;

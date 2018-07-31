@@ -30,10 +30,12 @@ class gfTracker_teacher_content_controller{
         //$text .= $activity_state;
         // $text .= $groupformationid;
         //$this->activity_state = "gf_aborted";
+        /*
         print_r("groupformationid");
         var_dump($this->groupformationid);
         print_r("activitystate");
         var_dump($this->activity_state);
+        */
 
 
         if ($this->groupformationid == null){

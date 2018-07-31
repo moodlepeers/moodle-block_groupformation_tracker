@@ -131,8 +131,6 @@ class gfTracker_badge_controller{
         $s .= ' '. $percent .' %    </div>';
         $s .= '</div>';
 
-        var_dump($percent);
-
         return $s;
     }
 }

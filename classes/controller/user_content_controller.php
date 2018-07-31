@@ -47,8 +47,8 @@ class gfTracker_user_content_controller{
         // TODO: zum Testen von ga_done
         //return $this->content_ga_done();
         //return $this->content_answering_open();
+        //return $this->content_started_closed();
 
-        // TODO switch nicht mit activity_state!
 
         switch ($this->activity_state){
             case "q_open":
@@ -82,6 +82,10 @@ class gfTracker_user_content_controller{
             case "q_reopened":
                 $text .= $this->content_reopened();
                 break;
+
+            default:
+                $text .= get_string('user_no_content', 'block_groupformation_tracker');
+                break;
         }
 
         return $text;
@@ -104,7 +108,11 @@ class gfTracker_user_content_controller{
                 break;
 
             case "submitted":
-                $text .= $this->content_submitted_open();
+                $text .= $this->content_submitted();
+                break;
+
+            default:
+                $text .= get_string('user_no_content', 'block_groupformation_tracker');
                 break;
         }
 
@@ -117,22 +125,20 @@ class gfTracker_user_content_controller{
         switch ($this->user_state){
             case "started":
 
-                break;
-
             case "consent_given":
-
-                break;
 
             case "p_code_given":
 
-                break;
-
             case "answering":
-
+                $text .= $this->content_started_closed();
                 break;
 
             case "submitted":
+                $text .= $this->content_submitted();
+                break;
 
+            default:
+                $text .= get_string('user_no_content', 'block_groupformation_tracker');
                 break;
         }
 
@@ -162,6 +168,10 @@ class gfTracker_user_content_controller{
             case "submitted":
 
                 break;
+
+            default:
+                $text .= get_string('user_no_content', 'block_groupformation_tracker');
+                break;
         }
 
         return $text;
@@ -189,6 +199,10 @@ class gfTracker_user_content_controller{
 
             case "submitted":
 
+                break;
+
+            default:
+                $text .= get_string('user_no_content', 'block_groupformation_tracker');
                 break;
         }
 
@@ -218,6 +232,10 @@ class gfTracker_user_content_controller{
             case "submitted":
 
                 break;
+
+            default:
+                $text .= get_string('user_no_content', 'block_groupformation_tracker');
+                break;
         }
 
         return $text;
@@ -245,6 +263,10 @@ class gfTracker_user_content_controller{
 
             case "submitted":
 
+                break;
+
+            default:
+                $text .= get_string('user_no_content', 'block_groupformation_tracker');
                 break;
         }
 
@@ -274,6 +296,10 @@ class gfTracker_user_content_controller{
             case "submitted":
 
                 break;
+
+            default:
+                $text .= get_string('user_no_content', 'block_groupformation_tracker');
+                break;
         }
 
         return $text;
@@ -302,6 +328,10 @@ class gfTracker_user_content_controller{
             case "submitted":
 
                 break;
+
+            default:
+                $text .= get_string('user_no_content', 'block_groupformation_tracker');
+                break;
         }
 
         return $text;
@@ -321,6 +351,8 @@ class gfTracker_user_content_controller{
 
     public function content_answering_open(){
 
+        // TODO progressbar muss noch die richtigen Werte bekommen
+        // TODO Link zum questionnaire muss eventuell angepasst werden. Bisher nur auf die erste Seite. Besser wäre die Seite die zuletzt beantwortet wurde bzw als nächstes beantwortet werden muss.
         $number_of_questions = 100;
         $questions_ready = 60;
         $progress = ($questions_ready/$number_of_questions)*100;
@@ -334,7 +366,7 @@ class gfTracker_user_content_controller{
         return $text;
     }
 
-    public function content_submitted_open(){
+    public function content_submitted(){
 
         $text = $this->badge_controller->state_badge("submitted");
         $text .= "<br>";
@@ -345,18 +377,29 @@ class gfTracker_user_content_controller{
         return $text;
     }
 
+    // activity state: closed
+
+    public function content_started_closed(){
+
+        // TODO möglicher Termin an dem der Fragebogen geöffnet wird muss angezeigt werden
+        $text = $this->badge_controller->state_badge("closed");
+        $text .= "<br>";
+        $text .= "<p>".get_string('closed_wait_for_teacher', 'block_groupformation_tracker')."</p>";
+
+        return $text;
+    }
+
     public function content_ga_done(){
         $text = "";
-        // TODO $gfinstance muss ersetzt werden
-        if (groupformation_has_group($this->gfinstance->id, $this->userid)) {
+        if (groupformation_has_group($this->groupformationid, $this->userid)) {
 
             $text .= "<p>".get_string('in_group', 'block_groupformation_tracker');
             $text .= "<b>";
-            $text .= groupformation_get_group_name($this->gfinstance->id, $this->userid);
+            $text .= groupformation_get_group_name($this->groupformationid, $this->userid);
             $text .= "</b>";
             $text .= "</p>";
 
-            $members = groupformation_get_group_members($this->gfinstance->id, $this->userid);
+            $members = groupformation_get_group_members($this->groupformationid, $this->userid);
             if (count($members)>0) {
                 $text .= "<p>".get_string('your_groupmembers', 'block_groupformation_tracker');
                 $text .= $this->create_group_member_list($members);
@@ -364,7 +407,7 @@ class gfTracker_user_content_controller{
             } else {
                 $text .= "<p>".get_string('alone_in_group', 'block_groupformation_tracker')."</p>";
             }
-            $text .= "<a href=\"".utilities::get_activity_url($this->gfinstance->id)."\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">Open Activity</a>";
+            $text .= "<a href=\"".utilities::get_activity_url($this->groupformationid)."\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">Open Activity</a>";
         } else {
             $text .= "<p>";
             $text .= get_string('did_not_answer', 'block_groupformation_tracker');
@@ -375,9 +418,10 @@ class gfTracker_user_content_controller{
 
     public function create_group_member_list($members){
         $list = '<ul class="list-group">';
+        $gfinstance = groupformation_get_instance_by_id($this->groupformationid);
         foreach($members as $memberid => $membername) {
             $list .= '<li class="list-group-item d-flex justify-content-between align-items-center">';
-            $list .= '<a href="'.utilities::get_user_profile_url($memberid, $this->gfinstance->course).'">'.$membername.'</a>';
+            $list .= '<a href="'.utilities::get_user_profile_url($memberid, $gfinstance->course).'">'.$membername.'</a>';
             $list .= '</li>';
         }
         $list .= '</ul>';

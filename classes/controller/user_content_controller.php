@@ -46,8 +46,8 @@ class gfTracker_user_content_controller{
 
         // TODO: zum Testen von ga_done
         //return $this->content_ga_done();
-        //return $this->content_answering_open();
-        //return $this->content_started_closed();
+        //return $this->content_answering_open("reopened");
+        //return $this->content_started_open("reopened");
 
 
         switch ($this->activity_state){
@@ -60,19 +60,13 @@ class gfTracker_user_content_controller{
                 break;
 
             case "gf_started":
-                $text .= $this->content_gf_started();
-                break;
 
             case "gf_aborted":
-                $text .= $this->content_gf_aborted();
-                break;
 
             case "gf_done":
-                $text .= $this->content_gf_done();
-                break;
 
             case "ga_started":
-                $text .= $this->content_ga_started();
+                $text .= $this->content_closed();
                 break;
 
             case "ga_done":
@@ -99,7 +93,7 @@ class gfTracker_user_content_controller{
 
             case "consent_given":
 
-            case "p_code_given": //es müssen noch unterschiedliche Links eingefügt werden
+            case "p_code_given": 
                 $text .= $this->content_started_open();
                 break;
 
@@ -166,7 +160,7 @@ class gfTracker_user_content_controller{
                 break;
 
             case "submitted":
-
+                $text .= $this->content_submitted();
                 break;
 
             default:
@@ -198,7 +192,7 @@ class gfTracker_user_content_controller{
                 break;
 
             case "submitted":
-
+                $text .= $this->content_submitted();
                 break;
 
             default:
@@ -230,7 +224,7 @@ class gfTracker_user_content_controller{
                 break;
 
             case "submitted":
-
+                $text .= $this->content_submitted();
                 break;
 
             default:
@@ -262,7 +256,7 @@ class gfTracker_user_content_controller{
                 break;
 
             case "submitted":
-
+                $text .= $this->content_submitted();
                 break;
 
             default:
@@ -311,22 +305,18 @@ class gfTracker_user_content_controller{
         switch ($this->user_state){
             case "started":
 
-                break;
-
             case "consent_given":
 
-                break;
-
             case "p_code_given":
-
+                $this->content_started_open("reopened");
                 break;
 
             case "answering":
-
+                $this->content_answering_open("reopened");
                 break;
 
             case "submitted":
-
+                $this->content_submitted();
                 break;
 
             default:
@@ -339,9 +329,9 @@ class gfTracker_user_content_controller{
 
     //activity state: open
 
-    public function content_started_open(){
+    public function content_started_open($state = "open"){
 
-        $text = $this->badge_controller->state_badge("open");
+        $text = $this->badge_controller->state_badge($state);
         $text .= "<br><br>";
         $text .= $this->badge_controller->get_go_to_questionnaire_button($this->groupformationcm, get_string('to_questionnaire', 'block_groupformation_tracker'));
 
@@ -349,14 +339,14 @@ class gfTracker_user_content_controller{
         return $text;
     }
 
-    public function content_answering_open(){
+    public function content_answering_open($state = "open"){
 
         // TODO progressbar muss noch die richtigen Werte bekommen
         // TODO Link zum questionnaire muss eventuell angepasst werden. Bisher nur auf die erste Seite. Besser wäre die Seite die zuletzt beantwortet wurde bzw als nächstes beantwortet werden muss.
         $number_of_questions = 100;
         $questions_ready = 60;
         $progress = ($questions_ready/$number_of_questions)*100;
-        $text = $this->badge_controller->state_badge("open");
+        $text = $this->badge_controller->state_badge($state);
         $text .= "<br>";
         $text .= $this->badge_controller->get_progressbar($progress);
         $text .= "<br>";

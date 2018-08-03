@@ -113,6 +113,14 @@ class gfTracker_badge_controller{
         return $text;
     }
 
+    public function get_reload_button(){
+        $text = "<a href=\"javascript:window.location.reload(true)\" class=\"btn btn-outline-primary\" 
+        style='background:url(/blocks/groupformation_tracker/images/recycle-159650_640_20px.png) center no-repeat; float: right; height: 20px; width: 20px; padding: 4px;' 
+        id=\"evaluation\" role=\"button\" aria-pressed=\"true\"></a>";
+
+        return $text;
+    }
+
     public function get_progressbar($percent) {
         $s = '<div class="progress">';
         $s .= '    <div style="width:' . $percent . '%;

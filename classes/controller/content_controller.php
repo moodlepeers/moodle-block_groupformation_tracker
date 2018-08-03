@@ -34,9 +34,10 @@ public function get_content($userid){
     if ($this->groupformationid != null){
         $gfinstance = groupformation_get_instance_by_id($this->groupformationid);
         // TODO Icon hinzufügen
-        $content->text .= "<h5>";
+        $content->text .= "<div style='background:url(/blocks/groupformation_tracker/images/icon_20px.png) left no-repeat; padding-left: 22px; height: 20px;'><h5>";
         $content->text .= $gfinstance->name;
-        $content->text .= "</h5>";
+        $content->text .= "</h5></div>";
+
     }
 
     /*

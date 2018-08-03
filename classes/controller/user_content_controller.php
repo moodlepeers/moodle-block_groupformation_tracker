@@ -93,7 +93,7 @@ class gfTracker_user_content_controller{
 
             case "consent_given":
 
-            case "p_code_given": 
+            case "p_code_given":
                 $text .= $this->content_started_open();
                 break;
 
@@ -139,6 +139,7 @@ class gfTracker_user_content_controller{
         return $text;
     }
 
+    /*
     public function content_gf_started(){
 
         $text = "";
@@ -170,7 +171,8 @@ class gfTracker_user_content_controller{
 
         return $text;
     }
-
+    */
+    /*
     public function content_gf_aborted(){
 
         $text = "";
@@ -202,7 +204,8 @@ class gfTracker_user_content_controller{
 
         return $text;
     }
-
+    */
+    /*
     public function content_gf_done(){
 
         $text = "";
@@ -234,7 +237,9 @@ class gfTracker_user_content_controller{
 
         return $text;
     }
+    */
 
+    /*
     public function content_ga_started(){
 
         $text = "";
@@ -266,7 +271,9 @@ class gfTracker_user_content_controller{
 
         return $text;
     }
+    */
 
+    /*
     public function content_ga_done2(){
 
         $text = "";
@@ -298,6 +305,7 @@ class gfTracker_user_content_controller{
 
         return $text;
     }
+    */
 
     public function content_reopened(){
 

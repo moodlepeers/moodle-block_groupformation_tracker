@@ -36,6 +36,7 @@ class gfTracker_teacher_content_controller{
         print_r("activitystate");
         var_dump($this->activity_state);
         */
+        return $this->content_gf_started();
 
 
         if ($this->groupformationid == null){
@@ -112,7 +113,8 @@ class gfTracker_teacher_content_controller{
 
         $text = $this->badge_controller->state_badge("gf_started");
         $text .= "<br>";
-        $text .= "<p>".get_string('gf_in_progress', 'block_groupformation_tracker')."<br>".get_string('takes_afew_min', 'block_groupformation_tracker')."</p>";
+        $text .= "<p>".get_string('gf_in_progress', 'block_groupformation_tracker').
+            "<br>".get_string('takes_afew_min', 'block_groupformation_tracker').$this->badge_controller->get_reload_button()."</p>";
 
         return $text;
     }
@@ -122,6 +124,8 @@ class gfTracker_teacher_content_controller{
         $text = $this->badge_controller->state_badge("gf_aborted");
         $text .= "<br>";
         $text .= $this->badge_controller->get_go_to_groupformation_button($this->groupformationcm, get_string('reset', 'block_groupformation_tracker'));
+        $text .= $this->badge_controller->get_reload_button();
+        var_dump($text);
 
         return $text;
     }
@@ -139,7 +143,8 @@ class gfTracker_teacher_content_controller{
 
         $text = $this->badge_controller->state_badge("ga_started");
         $text .= "";
-        $text .= "<p>".get_string('ga_in_progress', 'block_groupformation_tracker')."<br>".get_string('takes_afew_min', 'block_groupformation_tracker')."</p>";
+        $text .= "<p>".get_string('ga_in_progress', 'block_groupformation_tracker').
+            "<br>".get_string('takes_afew_min', 'block_groupformation_tracker').$this->badge_controller->get_reload_button()."</p>";
 
         return $text;
     }

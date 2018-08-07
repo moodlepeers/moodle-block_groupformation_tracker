@@ -47,7 +47,7 @@ class gfTracker_user_content_controller{
         // TODO: zum Testen von ga_done
         //return $this->content_ga_done();
         //return $this->content_answering_open("reopened");
-        //return $this->content_started_open("reopened");
+        //return $this->content_p_code_given_open("reopened");
 
 
         switch ($this->activity_state){
@@ -90,11 +90,13 @@ class gfTracker_user_content_controller{
         $text = "";
         switch ($this->user_state){
             case "started":
+                $text .= $this->content_started_open();
+                break;
 
             case "consent_given":
 
             case "p_code_given":
-                $text .= $this->content_started_open();
+                $text .= $this->content_p_code_given_open();
                 break;
 
             case "answering":
@@ -312,11 +314,13 @@ class gfTracker_user_content_controller{
         $text = "";
         switch ($this->user_state){
             case "started":
+                $text .= $this->content_started_open("reopened");
+                break;
 
             case "consent_given":
 
             case "p_code_given":
-                $this->content_started_open("reopened");
+                $this->content_p_code_given_open("reopened");
                 break;
 
             case "answering":
@@ -341,6 +345,16 @@ class gfTracker_user_content_controller{
 
         $text = $this->badge_controller->state_badge($state);
         $text .= "<br><br>";
+        $text .= $this->badge_controller->get_go_to_user_overview_button($this->groupformationcm, get_string('give_consent', 'block_groupformation_tracker'));
+
+
+        return $text;
+    }
+
+    public function content_p_code_given_open($state = "open"){
+
+        $text = $this->badge_controller->state_badge($state);
+        $text .= "<br><br>";
         $text .= $this->badge_controller->get_go_to_questionnaire_button($this->groupformationcm, get_string('to_questionnaire', 'block_groupformation_tracker'));
 
 
@@ -349,11 +363,11 @@ class gfTracker_user_content_controller{
 
     public function content_answering_open($state = "open"){
 
-        // TODO progressbar muss noch die richtigen Werte bekommen
         // TODO Link zum questionnaire muss eventuell angepasst werden. Bisher nur auf die erste Seite. Besser wäre die Seite die zuletzt beantwortet wurde bzw als nächstes beantwortet werden muss.
-        $number_of_questions = 100;
-        $questions_ready = 60;
+        $number_of_questions = groupformation_get_number_of_questions($this->groupformationid);
+        $questions_ready = groupformation_get_number_of_answered_questions($this->groupformationid, $this->userid);
         $progress = ($questions_ready/$number_of_questions)*100;
+        $progress = round($progress, 2);
         $text = $this->badge_controller->state_badge($state);
         $text .= "<br>";
         $text .= $this->badge_controller->get_progressbar($progress);

@@ -36,7 +36,6 @@ class gfTracker_teacher_content_controller{
         print_r("activitystate");
         var_dump($this->activity_state);
         */
-        return $this->content_gf_started();
 
 
         if ($this->groupformationid == null){
@@ -83,9 +82,9 @@ class gfTracker_teacher_content_controller{
 
     public function content_open(){
 
-        $number_of_students = 100;
-        $students_ready = 60;
-        $progress = ($students_ready/$number_of_students)*100;
+        $gfinformation = groupformation_get_progress_statistics($this->groupformationid);
+        $progress = ($gfinformation["submitted"]/$gfinformation["enrolled"])*100;
+        $progress = round($progress,2);
         $text = $this->badge_controller->state_badge("open");
         $text .= "<br>";
         $text .= "<p>".get_string('progressbar_description', 'block_groupformation_tracker')."</p>";
@@ -125,7 +124,6 @@ class gfTracker_teacher_content_controller{
         $text .= "<br>";
         $text .= $this->badge_controller->get_go_to_groupformation_button($this->groupformationcm, get_string('reset', 'block_groupformation_tracker'));
         $text .= $this->badge_controller->get_reload_button();
-        var_dump($text);
 
         return $text;
     }

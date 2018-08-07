@@ -103,6 +103,12 @@ class gfTracker_badge_controller{
         return  utilities::get_link_button($url, $string);
     }
 
+    public function get_go_to_user_overview_button($gfcm, $string){
+        $url = "/mod/groupformation/view.php?id=".$gfcm;
+
+        return  utilities::get_link_button($url, $string);
+    }
+
     public function get_see_evaluation_button($groupformationcm){
 
         $text = "<a href=\"/mod/groupformation/evaluation_view.php?id=";

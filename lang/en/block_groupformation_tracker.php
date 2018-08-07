@@ -54,5 +54,6 @@ $string['your_groupmembers'] = 'Your group members are:';
 $string['did_not_answer'] = 'You did not answer the questionnaire, hence you are not in a group.';
 $string['user_no_content'] = 'There is no content for this state combination';
 $string['closed_wait_for_teacher'] = 'Please wait for the teacher to open the Questionnaire';
+$string['give_consent'] = 'Give Consent';
 $string['pluginname'] = 'Groupformation Tracker';
 $string['language'] = 'en';

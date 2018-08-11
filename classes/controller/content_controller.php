@@ -25,18 +25,20 @@ public function __construct($context, $courseid, $groupformationid)
 }
 
 public function get_content($userid){
+    // TODO abfangen dass keine GF ausgewählt ist oder existiert
 
     global $PAGE;
 
     $content = new stdClass();
-    $content->text = "";
+    $content->text = "<div class='container' style='width: auto;'>";
 
-    if ($this->groupformationid != null){
+    if (!(groupformation_get_instance_by_id($this->groupformationid)===false)){
         $gfinstance = groupformation_get_instance_by_id($this->groupformationid);
+        $content->text .= "<div class='col'>";
         $content->text .= "<div style='background:url(/blocks/groupformation_tracker/images/icon_20px.png) left no-repeat; padding-left: 22px; height: 20px;'><h5>";
         $content->text .= $gfinstance->name;
         $content->text .= "</h5></div>";
-
+        $content->text .= "</div>";
     }
 
     /*
@@ -98,7 +100,8 @@ public function get_content($userid){
         $content->text .= $controller->get_content();
 
     }
-    //$content->text .= "</div>";
+
+    $content->text .= "</div>";
     //var_dump($content->text);
 
     return $content;

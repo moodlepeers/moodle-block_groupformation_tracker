@@ -49,6 +49,10 @@ class gfTracker_user_content_controller{
         //return $this->content_answering_open("reopened");
         //return $this->content_p_code_given_open("reopened");
 
+        if (groupformation_get_instance_by_id($this->groupformationid)=== false){
+            $text .= get_string('wait_for_teacher_choosegf', 'block_groupformation_tracker');
+            return $text;
+        }
 
         switch ($this->activity_state){
             case "q_open":
@@ -140,7 +144,7 @@ class gfTracker_user_content_controller{
 
         return $text;
     }
-
+    // TODO es muss angezeigt werden, dass bald gruppen kommen
     /*
     public function content_gf_started(){
 

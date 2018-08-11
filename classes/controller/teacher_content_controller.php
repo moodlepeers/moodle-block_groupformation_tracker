@@ -38,7 +38,7 @@ class gfTracker_teacher_content_controller{
         */
 
 
-        if ($this->groupformationid == null){
+        if (groupformation_get_instance_by_id($this->groupformationid)=== false){
             $text .= get_string('choosegf', 'block_groupformation_tracker');
             return $text;
         }
@@ -83,14 +83,22 @@ class gfTracker_teacher_content_controller{
     public function content_open(){
 
         $gfinformation = groupformation_get_progress_statistics($this->groupformationid);
-        $progress = ($gfinformation["submitted"]/$gfinformation["enrolled"])*100;
+        if ($gfinformation["enrolled"] == 0){
+            $progress = 0;
+        } else {
+            $progress = ($gfinformation["submitted"]/$gfinformation["enrolled"])*100;
+        }
         $progress = round($progress,2);
-        $text = $this->badge_controller->state_badge("open");
-        $text .= "<br>";
+        $text = "<div class='col'>";
+        $text .= $this->badge_controller->state_badge("open");
+        $text .= "</div>";
+        $text .= "<div class='col'>";
         $text .= "<p>".get_string('progressbar_description', 'block_groupformation_tracker')."</p>";
         $text .= $this->badge_controller->get_progressbar($progress);
-        $text .= "<br>";
+        $text .= "</div>";
+        $text .= "<div class='col'>";
         $text .= $this->badge_controller->get_go_to_overview_button($this->groupformationcm, get_string('go_to_activity', 'block_groupformation_tracker'));
+        $text .= "</div>";
 
 
         return $text;

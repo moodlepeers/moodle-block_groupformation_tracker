@@ -40,12 +40,13 @@ class gfTracker_user_content_controller{
     public function get_content()
     {
         $text = "";
+        return $this->content_answering_open();
 
         if (groupformation_get_instance_by_id($this->groupformationid)=== false){
             $text .= "<div class='col'><p>";
             $text .= get_string('wait_for_teacher_choosegf', 'block_groupformation_tracker');
             $text .= "</p></div>";
-            
+
             return $text;
         }
 
@@ -342,48 +343,58 @@ class gfTracker_user_content_controller{
 
     public function content_started_open($state = "open"){
 
-        $text = $this->badge_controller->state_badge($state);
-        $text .= "<br><br>";
-        $text .= $this->badge_controller->get_go_to_user_overview_button($this->groupformationcm, get_string('give_consent', 'block_groupformation_tracker'));
-
+        $text = "<div class='col'>";
+        $text .= $this->badge_controller->state_badge($state);
+        $text .= "</div>";
+        $text .= "<div class='col'>";
+        $text .= $this->badge_controller->get_go_to_user_overview_button($this->groupformationcm, get_string('go_to_activity', 'block_groupformation_tracker'));
+        $text .= "</div>";
 
         return $text;
     }
 
     public function content_p_code_given_open($state = "open"){
 
-        $text = $this->badge_controller->state_badge($state);
-        $text .= "<br><br>";
+        $text = "<div class='col'>";
+        $text .= $this->badge_controller->state_badge($state);
+        $text .= "</div>";
+        $text .= "<div class='col'>";
         $text .= $this->badge_controller->get_go_to_questionnaire_button($this->groupformationcm, get_string('to_questionnaire', 'block_groupformation_tracker'));
-
+        $text .= "</div>";
 
         return $text;
     }
 
     public function content_answering_open($state = "open"){
 
-        // TODO Link zum questionnaire muss eventuell angepasst werden. Bisher nur auf die erste Seite. Besser wäre die Seite die zuletzt beantwortet wurde bzw als nächstes beantwortet werden muss.
         $number_of_questions = groupformation_get_number_of_questions($this->groupformationid);
         $questions_ready = groupformation_get_number_of_answered_questions($this->groupformationid, $this->userid);
         $progress = ($questions_ready/$number_of_questions)*100;
         $progress = round($progress, 2);
-        $text = $this->badge_controller->state_badge($state);
-        $text .= "<br>";
+        $text = "<div class='col'>";
+        $text .= $this->badge_controller->state_badge($state);
+        $text .= "</div>";
+        $text .= "<div class='col'>";
         $text .= $this->badge_controller->get_progressbar($progress);
-        $text .= "<br>";
+        $text .= "</div>";
+        $text .= "<div class='col'>";
         $text .= $this->badge_controller->get_go_to_questionnaire_answering_button($this->groupformationcm, get_string('to_questionnaire', 'block_groupformation_tracker'));
-
+        $text .= "</div>";
 
         return $text;
     }
 
     public function content_submitted(){
 
-        $text = $this->badge_controller->state_badge("submitted");
-        $text .= "<br>";
+        $text = "<div class='col'>";
+        $text .= $this->badge_controller->state_badge("submitted");
+        $text .= "</div>";
+        $text .= "<div class='col'>";
         $text .= $this->badge_controller->get_go_to_questionnaire_button($this->groupformationcm, get_string('see_your_answers', 'block_groupformation_tracker'));
-        $text .= "<br><br>";
+        $text .= "</div>";
+        $text .= "<div class='col'>";
         $text .= $this->badge_controller->get_see_evaluation_button($this->groupformationcm);
+        $text .= "</div>";
 
         return $text;
     }
@@ -393,9 +404,12 @@ class gfTracker_user_content_controller{
     public function content_started_closed(){
 
         // TODO möglicher Termin an dem der Fragebogen geöffnet wird muss angezeigt werden
-        $text = $this->badge_controller->state_badge("closed");
-        $text .= "<br>";
+        $text = "<div class='col'>";
+        $text .= $this->badge_controller->state_badge("closed");
+        $text .= "</div>";
+        $text .= "<div class='col'>";
         $text .= "<p>".get_string('closed_wait_for_teacher', 'block_groupformation_tracker')."</p>";
+        $text .= "</div>";
 
         return $text;
     }

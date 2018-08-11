@@ -127,7 +127,15 @@ class gfTracker_badge_controller{
 
     public function get_progressbar($percent) {
         // TODO bei wenig prozent nicht gut angezeigt
-        $s = '<div class="progress">';
+        $s = '';
+        if ($percent < 25){
+            $s .= "<div class=progress_text>";
+            $s .= get_string('percentage', 'block_groupformation_tracker');
+            $s .= $percent.' %';
+            $s .= "</div>";
+        }
+        $s .= '<div class="progress">';
+
         $s .= '    <div style="width:' . $percent . '%;
         height: 100%;
         font-size: 12px;
@@ -141,7 +149,10 @@ class gfTracker_badge_controller{
         -o-transition: width .6s ease;
         transition: width .6s ease;" class="questionaire_progress-bar" role="progressbar" aria-valuenow="' . $percent .
             '" aria-valuemin="0" aria-valuemax="100" >';
-        $s .= ' '. $percent .' %    </div>';
+        if ($percent >= 25){
+            $s .= $percent.' %';
+        }
+        $s .='</div>';
         $s .= '</div>';
 
         return $s;

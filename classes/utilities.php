@@ -22,7 +22,7 @@ class utilities {
     }
 
     public static function get_link_button($url, $string){
-        $text = "<a href=\"".$url."\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">".$string."</a>";
+        $text = "<a href=\"".$url."\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\" style='margin-bottom: 3px; margin-top:3px'>".$string."</a>";
 
         return $text;
     }

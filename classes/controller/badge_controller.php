@@ -7,9 +7,6 @@ use groupformation_tracker\utilities;
 
 class gfTracker_badge_controller{
 
-    public function __construct()
-    {
-    }
 
     public function state_badge($state_type){
         $text = "";
@@ -78,7 +75,7 @@ class gfTracker_badge_controller{
         //link muss noch angepasst werden. bisher nur anfang questionnaire
         $text = "<a href=\"/mod/groupformation/questionnaire_view.php?id=";
         $text .= $groupformationcm;
-        $text .= "&direction=1\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">".get_string('to_questionnaire', 'block_groupformation_tracker')."</a>";
+        $text .= "&direction=1\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\" >".get_string('to_questionnaire', 'block_groupformation_tracker')."</a>";
 
         return $text;
     }

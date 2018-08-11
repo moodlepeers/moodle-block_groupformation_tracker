@@ -40,17 +40,12 @@ class gfTracker_user_content_controller{
     public function get_content()
     {
         $text = "";
-        $text .= $this->activity_state;
-        $text .= $this->user_state;
-
-
-        // TODO: zum Testen von ga_done
-        //return $this->content_ga_done();
-        //return $this->content_answering_open("reopened");
-        //return $this->content_p_code_given_open("reopened");
 
         if (groupformation_get_instance_by_id($this->groupformationid)=== false){
+            $text .= "<div class='col'><p>";
             $text .= get_string('wait_for_teacher_choosegf', 'block_groupformation_tracker');
+            $text .= "</p></div>";
+            
             return $text;
         }
 

@@ -39,7 +39,9 @@ class gfTracker_teacher_content_controller{
 
 
         if (groupformation_get_instance_by_id($this->groupformationid)=== false){
+            $text .= "<div class='col'><p>";
             $text .= get_string('choosegf', 'block_groupformation_tracker');
+            $text .= "</p></div>";
             return $text;
         }
 
@@ -106,79 +108,105 @@ class gfTracker_teacher_content_controller{
 
     public function content_closed(){
 
-        $text = $this->badge_controller->state_badge("closed");
-        $text .= "<br>";
+        $text = "<div class='col'>";
+        $text .= $this->badge_controller->state_badge("closed");
+        $text .= "</div>";
+        $text .= "<div class='col'>";
         $text .= $this->badge_controller->get_go_to_overview_button($this->groupformationcm, get_string('open_questionnaire', 'block_groupformation_tracker'));
-        $text .= "<br><br>";
+        $text .= "</div>";
+        $text .= "<div class='col'>";
         $text .= $this->badge_controller->get_go_to_groupformation_button($this->groupformationcm, get_string('go_to_activity', 'block_groupformation_tracker'));
-
+        $text .= "</div>";
 
         return $text;
     }
 
     public function content_gf_started(){
 
-        $text = $this->badge_controller->state_badge("gf_started");
-        $text .= "<br>";
+        $text = "<div class='col'>";
+        $text .= $this->badge_controller->state_badge("gf_started");
+        $text .= "</div>";
+        $text .= "<div class='col'>";
         $text .= "<p>".get_string('gf_in_progress', 'block_groupformation_tracker').
             "<br>".get_string('takes_afew_min', 'block_groupformation_tracker').$this->badge_controller->get_reload_button()."</p>";
+        $text .= "</div>";
 
         return $text;
     }
 
     public function content_gf_aborted(){
 
-        $text = $this->badge_controller->state_badge("gf_aborted");
-        $text .= "<br>";
+        $text = "<div class='col'>";
+        $text .= $this->badge_controller->state_badge("gf_aborted");
+        $text .= "</div>";
+        $text .= "<div class='col'>";
         $text .= $this->badge_controller->get_go_to_groupformation_button($this->groupformationcm, get_string('reset', 'block_groupformation_tracker'));
         $text .= $this->badge_controller->get_reload_button();
+        $text .= "</div>";
 
         return $text;
     }
 
     public function content_gf_done(){
 
-        $text = $this->badge_controller->state_badge("gf_done");
-        $text .= "<br>";
+        $text = "<div class='col'>";
+        $text .= $this->badge_controller->state_badge("gf_done");
+        $text .= "</div>";
+        $text .= "<div class='col'>";
         $text .= $this->badge_controller->get_go_to_overview_button($this->groupformationcm, get_string('to_results', 'block_groupformation_tracker'));
+        $text .= "</div>";
 
         return $text;
     }
 
     public function content_ga_started(){
 
-        $text = $this->badge_controller->state_badge("ga_started");
-        $text .= "";
+        $text = "<div class='col'>";
+        $text .= $this->badge_controller->state_badge("ga_started");
+        $text .= "</div>";
+        $text .= "<div class='col'>";
         $text .= "<p>".get_string('ga_in_progress', 'block_groupformation_tracker').
             "<br>".get_string('takes_afew_min', 'block_groupformation_tracker').$this->badge_controller->get_reload_button()."</p>";
+        $text .= "</div>";
 
         return $text;
     }
 
     public function content_ga_done(){
 
-        $text = $this->badge_controller->state_badge("ga_done");
-        $text .= "<p>";
+        $text = "<div class='col'>";
+        $text .= $this->badge_controller->state_badge("ga_done");
+        $text .= "</div>";
+        $text .= "<div class='col'>";
         $text .= $this->badge_controller->get_go_to_groupformation_button($this->groupformationcm, get_string('delete_groups', 'block_groupformation_tracker'));
-        $text .= "<br><br>";
+        $text .= "</div>";
+        $text .= "<div class='col'>";
         $text .= $this->badge_controller->get_go_to_overview_button($this->groupformationcm, get_string('reopen_questionnaire', 'block_groupformation_tracker'));
-        $text .= "</p>";
+        $text .= "</div>";
 
         return $text;
     }
 
     public function content_reopened(){
-        $number_of_students = 100;
-        $students_ready = 60;
-        $progress = ($students_ready/$number_of_students)*100;
-        $text = $this->badge_controller->state_badge("reopened");
-        $text .= "<br>";
+        $gfinformation = groupformation_get_progress_statistics($this->groupformationid);
+        if ($gfinformation["enrolled"] == 0){
+            $progress = 0;
+        } else {
+            $progress = ($gfinformation["submitted"]/$gfinformation["enrolled"])*100;
+        }
+        $progress = round($progress,2);
+        $text = "<div class='col'>";
+        $text .= $this->badge_controller->state_badge("reopened");
+        $text .= "</div>";
+        $text .= "<div class='col'>";
         $text .= "<p>".get_string('progressbar_description', 'block_groupformation_tracker')."</p>";
+        $text .= "</div>";
+        $text .= "<div class='col'>";
         $text .= $this->badge_controller->get_progressbar($progress);
-        $text .= "<br>";
+        $text .= "</div>";
+        $text .= "<div class='col'>";
         $text .= $this->badge_controller->get_go_to_overview_button($this->groupformationcm, get_string('go_to_activity', 'block_groupformation_tracker'));
-
-
+        $text .= "</div>";
         return $text;
     }
 

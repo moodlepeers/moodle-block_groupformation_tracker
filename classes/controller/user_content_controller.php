@@ -427,13 +427,16 @@ class gfTracker_user_content_controller{
     public function content_ga_done(){
         $text = "";
         if (groupformation_has_group($this->groupformationid, $this->userid)) {
-            
+
+            $text .= "<div class='col'>";
             $text .= "<p>".get_string('in_group', 'block_groupformation_tracker');
             $text .= "<b>";
             $text .= groupformation_get_group_name($this->groupformationid, $this->userid);
             $text .= "</b>";
             $text .= "</p>";
+            $text .= "</div>";
 
+            $text .= "<div class='col'>";
             $members = groupformation_get_group_members($this->groupformationid, $this->userid);
             if (count($members)>0) {
                 $text .= "<p>".get_string('your_groupmembers', 'block_groupformation_tracker');
@@ -442,11 +445,16 @@ class gfTracker_user_content_controller{
             } else {
                 $text .= "<p>".get_string('alone_in_group', 'block_groupformation_tracker')."</p>";
             }
+            $text .= "</div>";
+            $text .= "<div class='col'>";
             $text .= "<a href=\"".utilities::get_activity_url($this->groupformationid)."\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">Open Activity</a>";
+            $text .= "</div>";
         } else {
+            $text .= "<div class='col'>";
             $text .= "<p>";
             $text .= get_string('did_not_answer', 'block_groupformation_tracker');
             $text .= "</p>";
+            $text .= "</div>";
         }
         return $text;
     }

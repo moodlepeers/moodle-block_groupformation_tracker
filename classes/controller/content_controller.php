@@ -25,7 +25,6 @@ public function __construct($context, $courseid, $groupformationid)
 }
 
 public function get_content($userid){
-    // TODO abfangen dass keine GF ausgewählt ist oder existiert
 
     global $PAGE;
 

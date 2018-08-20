@@ -426,6 +426,11 @@ class gfTracker_user_content_controller{
 
     public function content_ga_done(){
         $text = "";
+        
+        $text .= "<div class='col'>";
+        $text .= $this->badge_controller->state_badge("ga_done");
+        $text .= "</div>";
+
         if (groupformation_has_group($this->groupformationid, $this->userid)) {
 
             $text .= "<div class='col'>";

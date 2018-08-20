@@ -126,7 +126,6 @@ class gfTracker_badge_controller{
     }
 
     public function get_progressbar($percent) {
-        // TODO bei wenig prozent nicht gut angezeigt
         $s = '';
         if ($percent < 25){
             $s .= "<div class=progress_text>";

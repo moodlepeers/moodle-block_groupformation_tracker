@@ -40,7 +40,7 @@ class gfTracker_user_content_controller{
     public function get_content()
     {
         $text = "";
-        return $this->content_answering_open();
+
 
         if (groupformation_get_instance_by_id($this->groupformationid)=== false){
             $text .= "<div class='col'><p>";
@@ -66,7 +66,7 @@ class gfTracker_user_content_controller{
             case "gf_done":
 
             case "ga_started":
-                $text .= $this->content_closed();
+                $text .= $this->content_gf_started();
                 break;
 
             case "ga_done":
@@ -140,30 +140,23 @@ class gfTracker_user_content_controller{
 
         return $text;
     }
-    // TODO es muss angezeigt werden, dass bald gruppen kommen
-    /*
+
     public function content_gf_started(){
 
         $text = "";
         switch ($this->user_state){
             case "started":
 
-                break;
-
             case "consent_given":
-
-                break;
 
             case "p_code_given":
 
-                break;
-
             case "answering":
-
+                $text .= $this->content_wait_gf_started();
                 break;
 
             case "submitted":
-                $text .= $this->content_submitted();
+                $text .= $this->content_submitted(true);
                 break;
 
             default:
@@ -173,7 +166,7 @@ class gfTracker_user_content_controller{
 
         return $text;
     }
-    */
+
     /*
     public function content_gf_aborted(){
 
@@ -384,11 +377,16 @@ class gfTracker_user_content_controller{
         return $text;
     }
 
-    public function content_submitted(){
+    public function content_submitted($gf_bool = false){
 
         $text = "<div class='col'>";
         $text .= $this->badge_controller->state_badge("submitted");
         $text .= "</div>";
+        if ($gf_bool){
+            $text .= "<div class='col'>";
+            $text .= "<p>".get_string('gf_started_wait_for_teacher', 'block_groupformation_tracker')."</p>";
+            $text .= "</div>";
+        }
         $text .= "<div class='col'>";
         $text .= $this->badge_controller->get_go_to_questionnaire_button($this->groupformationcm, get_string('see_your_answers', 'block_groupformation_tracker'));
         $text .= "</div>";
@@ -414,10 +412,22 @@ class gfTracker_user_content_controller{
         return $text;
     }
 
+    public function content_wait_gf_started($state = "closed"){
+
+        $text = "<div class='col'>";
+        $text .= $this->badge_controller->state_badge($state);
+        $text .= "</div>";
+        $text .= "<div class='col'>";
+        $text .= "<p>".get_string('gf_started_wait_for_teacher', 'block_groupformation_tracker')."</p>";
+        $text .= "</div>";
+
+        return $text;
+    }
+
     public function content_ga_done(){
         $text = "";
         if (groupformation_has_group($this->groupformationid, $this->userid)) {
-
+            
             $text .= "<p>".get_string('in_group', 'block_groupformation_tracker');
             $text .= "<b>";
             $text .= groupformation_get_group_name($this->groupformationid, $this->userid);

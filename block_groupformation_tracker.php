@@ -105,8 +105,8 @@ class block_groupformation_tracker extends block_base {
         $controller = new gfTracker_content_controller($currentcontext, $this->page->course->id, $this->config->groupformationid);
         $this->content = $controller->get_content($USER->id);
 
-        var_dump($this->content);
 
+        var_dump($this->content);
         return $this->content;
     }
 

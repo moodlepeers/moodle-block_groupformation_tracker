@@ -58,5 +58,7 @@ $string['closed_wait_for_teacher'] = 'Please wait for the teacher to open the Qu
 $string['gf_started_wait_for_teacher'] = 'Please wait for the teacher to adapt the groups. This process may take a few minutes.';
 $string['give_consent'] = 'Give Consent';
 $string['percentage'] = 'Progress: ';
+$string['q_open_at'] = 'The Questionnaire will be opened at ';
+$string['q_closed_at'] = 'The Questionnaire will be closed at ';
 $string['pluginname'] = 'Groupformation Tracker';
 $string['language'] = 'en';

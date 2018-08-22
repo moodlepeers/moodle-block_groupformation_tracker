@@ -336,9 +336,15 @@ class gfTracker_user_content_controller{
 
     public function content_started_open($state = "open"){
 
+        $dates = groupformation_get_dates($this->groupformationid);
         $text = "<div class='col'>";
         $text .= $this->badge_controller->state_badge($state);
         $text .= "</div>";
+        if ($dates['end_raw'] >= time()){
+            $text .= "<div class='col'>";
+            $text .= "<p>".get_string('q_closed_at', 'block_groupformation_tracker').$dates['end']."</p>";
+            $text .= "</div>";
+        }
         $text .= "<div class='col'>";
         $text .= $this->badge_controller->get_go_to_user_overview_button($this->groupformationcm, get_string('go_to_activity', 'block_groupformation_tracker'));
         $text .= "</div>";
@@ -348,9 +354,15 @@ class gfTracker_user_content_controller{
 
     public function content_p_code_given_open($state = "open"){
 
+        $dates = groupformation_get_dates($this->groupformationid);
         $text = "<div class='col'>";
         $text .= $this->badge_controller->state_badge($state);
         $text .= "</div>";
+        if ($dates['end_raw'] >= time()){
+            $text .= "<div class='col'>";
+            $text .= "<p>".get_string('q_closed_at', 'block_groupformation_tracker').$dates['end']."</p>";
+            $text .= "</div>";
+        }
         $text .= "<div class='col'>";
         $text .= $this->badge_controller->get_go_to_questionnaire_button($this->groupformationcm, get_string('to_questionnaire', 'block_groupformation_tracker'));
         $text .= "</div>";
@@ -360,6 +372,7 @@ class gfTracker_user_content_controller{
 
     public function content_answering_open($state = "open"){
 
+        $dates = groupformation_get_dates($this->groupformationid);
         $number_of_questions = groupformation_get_number_of_questions($this->groupformationid);
         $questions_ready = groupformation_get_number_of_answered_questions($this->groupformationid, $this->userid);
         $progress = ($questions_ready/$number_of_questions)*100;
@@ -370,6 +383,11 @@ class gfTracker_user_content_controller{
         $text .= "<div class='col'>";
         $text .= $this->badge_controller->get_progressbar($progress);
         $text .= "</div>";
+        if ($dates['end_raw'] >= time()){
+            $text .= "<div class='col'>";
+            $text .= "<p>".get_string('q_closed_at', 'block_groupformation_tracker').$dates['end']."</p>";
+            $text .= "</div>";
+        }
         $text .= "<div class='col'>";
         $text .= $this->badge_controller->get_go_to_questionnaire_answering_button($this->groupformationcm, get_string('to_questionnaire', 'block_groupformation_tracker'));
         $text .= "</div>";
@@ -401,12 +419,16 @@ class gfTracker_user_content_controller{
 
     public function content_started_closed(){
 
-        // TODO möglicher Termin an dem der Fragebogen geöffnet wird muss angezeigt werden
+        $dates = groupformation_get_dates($this->groupformationid);
         $text = "<div class='col'>";
         $text .= $this->badge_controller->state_badge("closed");
         $text .= "</div>";
         $text .= "<div class='col'>";
-        $text .= "<p>".get_string('closed_wait_for_teacher', 'block_groupformation_tracker')."</p>";
+        if ($dates['start_raw'] < time()) {
+            $text .= "<p>" . get_string('closed_wait_for_teacher', 'block_groupformation_tracker') . "</p>";
+        } else {
+            $text .= "<p>".get_string('q_open_at', 'block_groupformation_tracker').$dates['start']."</p>";
+        }
         $text .= "</div>";
 
         return $text;
@@ -426,7 +448,7 @@ class gfTracker_user_content_controller{
 
     public function content_ga_done(){
         $text = "";
-        
+
         $text .= "<div class='col'>";
         $text .= $this->badge_controller->state_badge("ga_done");
         $text .= "</div>";

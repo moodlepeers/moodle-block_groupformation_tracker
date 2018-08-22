@@ -27,15 +27,6 @@ class gfTracker_teacher_content_controller{
 
     public function get_content(){
         $text = "";
-        //$text .= $activity_state;
-        // $text .= $groupformationid;
-        //$this->activity_state = "gf_aborted";
-        /*
-        print_r("groupformationid");
-        var_dump($this->groupformationid);
-        print_r("activitystate");
-        var_dump($this->activity_state);
-        */
 
 
         if (groupformation_get_instance_by_id($this->groupformationid)=== false){

@@ -313,15 +313,20 @@ class gfTracker_user_content_controller{
             case "consent_given":
 
             case "p_code_given":
-                $this->content_p_code_given_open("reopened");
+                $text .= $this->content_p_code_given_open("reopened");
                 break;
 
             case "answering":
-                $this->content_answering_open("reopened");
+                $text.= $this->content_answering_open("reopened");
                 break;
 
             case "submitted":
-                $this->content_submitted();
+                $members = groupformation_get_group_members($this->groupformationid, $this->userid);
+                if (count($members)>0){
+                    $text .= $this->content_ga_done();
+                } else {
+                    $text .= $this->content_submitted();
+                }
                 break;
 
             default:

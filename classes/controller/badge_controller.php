@@ -107,7 +107,7 @@ class gfTracker_badge_controller{
     }
 
     public function get_see_evaluation_button($groupformationcm){
-        // TODO muss man nicht immer anzeigen
+        // TODOTODO muss man nicht immer anzeigen
 
         $text = "<a href=\"/mod/groupformation/evaluation_view.php?id=";
         $text .= $groupformationcm;

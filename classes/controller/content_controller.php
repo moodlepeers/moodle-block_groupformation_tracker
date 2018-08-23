@@ -34,9 +34,9 @@ public function get_content($userid){
     if (!(groupformation_get_instance_by_id($this->groupformationid)===false)){
         $gfinstance = groupformation_get_instance_by_id($this->groupformationid);
         $content->text .= "<div class='col'>";
-        $content->text .= "<div style='background:url(/blocks/groupformation_tracker/images/icon_20px.png) left no-repeat; padding-left: 22px; height: 20px;'><h5>";
+        $content->text .= "<a href=\"/mod/groupformation/analysis_view.php?id=".groupformation_get_cm($this->groupformationid)."&do_show=analysis\" style='color: black'><div style='background:url(/blocks/groupformation_tracker/images/icon_20px.png) left no-repeat; padding-left: 22px; height: 20px;'><h5>";
         $content->text .= $gfinstance->name;
-        $content->text .= "</h5></div>";
+        $content->text .= "</h5></div></a>";
         $content->text .= "</div>";
     }
 

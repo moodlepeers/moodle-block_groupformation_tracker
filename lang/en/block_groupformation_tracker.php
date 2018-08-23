@@ -24,7 +24,7 @@
 $string['blockstring'] = 'Block string';
 $string['groupformation_tracker:addinstance'] = 'Add the Groupformation Tracker block';
 $string['groupformation_tracker:myaddinstance'] = 'Add the Groupformation Tracker block to my moodle';
-$string['choosegf'] = 'open editing and choose groupformation';
+$string['choosegf'] = 'Please configure the block element and select a groupformation activity.';
 $string['wait_for_teacher_choosegf'] = 'The teacher have not chosen any Groupformation yet. Please wait for the teacher to choose one.';
 $string['progressbar_description'] = 'submitted Questionnaires: ';
 $string['go_to_activity'] = 'Go to Activity';
@@ -62,3 +62,4 @@ $string['q_open_at'] = 'The Questionnaire will be opened at ';
 $string['q_closed_at'] = 'The Questionnaire will be closed at ';
 $string['pluginname'] = 'Groupformation Tracker';
 $string['language'] = 'en';
+$string['selectactivity'] = 'Please select a Groupformation activity in order to track it with the block element.';

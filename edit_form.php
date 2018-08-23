@@ -37,8 +37,9 @@ class block_groupformation_tracker_edit_form extends block_edit_form {
         foreach ($instances as $instance) {
             $groupformationids[$instance->id] = $instance->name;
         }
+        $mform->addElement('html', '<p>'.get_string('selectactivity', 'block_groupformation_tracker').'</p>');
 
-        $mform->addElement('select', 'config_groupformationid', 'Groupformationids', $groupformationids);
+        $mform->addElement('select', 'config_groupformationid', 'Groupformation Activities', $groupformationids);
 
         //parent::definition();
     }

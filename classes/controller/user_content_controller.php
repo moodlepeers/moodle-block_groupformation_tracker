@@ -167,141 +167,6 @@ class gfTracker_user_content_controller{
         return $text;
     }
 
-    /*
-    public function content_gf_aborted(){
-
-        $text = "";
-        switch ($this->user_state){
-            case "started":
-
-                break;
-
-            case "consent_given":
-
-                break;
-
-            case "p_code_given":
-
-                break;
-
-            case "answering":
-
-                break;
-
-            case "submitted":
-                $text .= $this->content_submitted();
-                break;
-
-            default:
-                $text .= get_string('user_no_content', 'block_groupformation_tracker');
-                break;
-        }
-
-        return $text;
-    }
-    */
-    /*
-    public function content_gf_done(){
-
-        $text = "";
-        switch ($this->user_state){
-            case "started":
-
-                break;
-
-            case "consent_given":
-
-                break;
-
-            case "p_code_given":
-
-                break;
-
-            case "answering":
-
-                break;
-
-            case "submitted":
-                $text .= $this->content_submitted();
-                break;
-
-            default:
-                $text .= get_string('user_no_content', 'block_groupformation_tracker');
-                break;
-        }
-
-        return $text;
-    }
-    */
-
-    /*
-    public function content_ga_started(){
-
-        $text = "";
-        switch ($this->user_state){
-            case "started":
-
-                break;
-
-            case "consent_given":
-
-                break;
-
-            case "p_code_given":
-
-                break;
-
-            case "answering":
-
-                break;
-
-            case "submitted":
-                $text .= $this->content_submitted();
-                break;
-
-            default:
-                $text .= get_string('user_no_content', 'block_groupformation_tracker');
-                break;
-        }
-
-        return $text;
-    }
-    */
-
-    /*
-    public function content_ga_done2(){
-
-        $text = "";
-        switch ($this->user_state){
-            case "started":
-
-                break;
-
-            case "consent_given":
-
-                break;
-
-            case "p_code_given":
-
-                break;
-
-            case "answering":
-
-                break;
-
-            case "submitted":
-
-                break;
-
-            default:
-                $text .= get_string('user_no_content', 'block_groupformation_tracker');
-                break;
-        }
-
-        return $text;
-    }
-    */
-
     public function content_reopened(){
 
         $text = "";
@@ -351,6 +216,9 @@ class gfTracker_user_content_controller{
             $text .= "</div>";
         }
         $text .= "<div class='col'>";
+        $text .= "<p>".get_string('start_answering', 'block_groupformation_tracker')."</p>";
+        $text .= "</div>";
+        $text .= "<div class='col'>";
         $text .= $this->badge_controller->get_go_to_user_overview_button($this->groupformationcm, get_string('go_to_activity', 'block_groupformation_tracker'));
         $text .= "</div>";
 
@@ -368,6 +236,9 @@ class gfTracker_user_content_controller{
             $text .= "<p>".get_string('q_closed_at', 'block_groupformation_tracker').$dates['end']."</p>";
             $text .= "</div>";
         }
+        $text .= "<div class='col'>";
+        $text .= "<p>".get_string('start_answering', 'block_groupformation_tracker')."</p>";
+        $text .= "</div>";
         $text .= "<div class='col'>";
         $text .= $this->badge_controller->get_go_to_questionnaire_button($this->groupformationcm, get_string('to_questionnaire', 'block_groupformation_tracker'));
         $text .= "</div>";
@@ -393,9 +264,22 @@ class gfTracker_user_content_controller{
             $text .= "<p>".get_string('q_closed_at', 'block_groupformation_tracker').$dates['end']."</p>";
             $text .= "</div>";
         }
-        $text .= "<div class='col'>";
-        $text .= $this->badge_controller->get_go_to_questionnaire_answering_button($this->groupformationcm, get_string('to_questionnaire', 'block_groupformation_tracker'));
-        $text .= "</div>";
+        if ($progress == 100){
+            $text .= "<div class='col'>";
+            $text .= "<p>".get_string('submit_questionnaire', 'block_groupformation_tracker')."</p>";
+            $text .= "</div>";
+            $text .= "<div class='col'>";
+            $text .= $this->badge_controller->get_go_to_user_overview_button($this->groupformationcm, get_string('go_to_activity', 'block_groupformation_tracker'));
+            $text .= "</div>";
+        } else {
+            $text .= "<div class='col'>";
+            $text .= "<p>".get_string('continue_answering', 'block_groupformation_tracker')."</p>";
+            $text .= "</div>";
+            $text .= "<div class='col'>";
+            $text .= $this->badge_controller->get_go_to_questionnaire_answering_button($this->groupformationcm, get_string('to_questionnaire', 'block_groupformation_tracker'));
+            $text .= "</div>";
+        }
+
 
         return $text;
     }

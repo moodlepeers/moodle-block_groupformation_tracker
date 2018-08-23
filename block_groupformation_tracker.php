@@ -93,7 +93,7 @@ class block_groupformation_tracker extends block_base {
         $currentcontext = $this->page->context->get_course_context(false);
 
         $this->content = new stdClass();
-        $this->content->text = "Content here";
+        $this->content->text = get_string('choosegf', 'block_groupformation_tracker');
         // Use lang strings.
         // $this->content->text = get_string('string_identifier', 'block_groupformation_tracker');
 
@@ -101,9 +101,10 @@ class block_groupformation_tracker extends block_base {
             return $this->content;
         }
 
-
-        $controller = new gfTracker_content_controller($currentcontext, $this->page->course->id, $this->config->groupformationid);
-        $this->content = $controller->get_content($USER->id);
+        if (isset($this->config->groupformationid)) {
+            $controller = new gfTracker_content_controller($currentcontext, $this->page->course->id, $this->config->groupformationid);
+            $this->content = $controller->get_content($USER->id);
+        }
 
 
         return $this->content;

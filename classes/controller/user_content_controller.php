@@ -346,7 +346,7 @@ class gfTracker_user_content_controller{
 
             $text .= "<div class='col'>";
             $text .= "<p>".get_string('in_group', 'block_groupformation_tracker');
-            $text .= "<b>";
+            $text .= " <b>";
             $text .= groupformation_get_group_name($this->groupformationid, $this->userid);
             $text .= "</b>";
             $text .= "</p>";
@@ -363,7 +363,7 @@ class gfTracker_user_content_controller{
             }
             $text .= "</div>";
             $text .= "<div class='col'>";
-            $text .= "<a href=\"".utilities::get_activity_url($this->groupformationid)."\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">Open Activity</a>";
+            $text .= "<a href=\"".utilities::get_activity_url($this->groupformationid)."\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">".get_string("go_to_activity","block_groupformation_tracker")."</a>";
             $text .= "</div>";
         } else {
             $text .= "<div class='col'>";

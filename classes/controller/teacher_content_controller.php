@@ -144,7 +144,10 @@ class gfTracker_teacher_content_controller{
         $text .= $this->badge_controller->state_badge("gf_done");
         $text .= "</div>";
         $text .= "<div class='col'>";
-        $text .= $this->badge_controller->get_go_to_overview_button($this->groupformationcm, get_string('to_results', 'block_groupformation_tracker'));
+        $text .= "<p>".get_string('gf_done_description', 'block_groupformation_tracker')."</p>";
+        $text .= "</div>";
+        $text .= "<div class='col'>";
+        $text .= $this->badge_controller->get_go_to_groupformation_button($this->groupformationcm, get_string('to_results', 'block_groupformation_tracker'));
         $text .= "</div>";
 
         return $text;

@@ -10,7 +10,7 @@ class gfTracker_badge_controller{
 
     public function state_badge($state_type){
         $text = "";
-        $text .= "<h6>State: ";
+        $text .= "<h6>".get_string("state","block_groupformation_tracker").": ";
         switch ($state_type){
             case "open":
                 $text .= "<span class=\"badge badge-pill badge-success\"><b>".get_string('open', 'block_groupformation_tracker')."</b></span><br>";
@@ -130,7 +130,7 @@ class gfTracker_badge_controller{
         if ($percent < 25){
             $s .= "<div class=progress_text>";
             $s .= get_string('percentage', 'block_groupformation_tracker');
-            $s .= $percent.' %';
+            $s .= ' '.$percent.' %';
             $s .= "</div>";
         }
         $s .= '<div class="progress">';

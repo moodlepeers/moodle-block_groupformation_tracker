@@ -66,5 +66,6 @@ $string['submit_questionnaire'] = 'Bitte beantworten Sie den Fragebogen zum Absc
 $string['pluginname'] = 'Tracker: Gruppenformation';
 $string['language'] = 'de';
 $string['state'] = 'Status';
+$string['notforuser'] = 'Diese Aktivität ist für Sie nicht relevant.';
 $string['gf_done_description'] = 'Gruppenformation beendet. Bitte begutachten Sie die vorgeschlagenen Gruppen und übernehmen Sie diese als Moodle-Gruppen.';
 $string['selectactivity'] = 'Bitte konfigurieren Sie das Blockelement und wählen Sie eine Gruppenformationsaktivität aus.';

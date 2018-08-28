@@ -31,7 +31,7 @@ public function get_content($userid){
     $content = new stdClass();
     $content->text = "<div class='container' style='width: auto;'>";
 
-    if (!(groupformation_get_instance_by_id($this->groupformationid)===false)){
+    if (!(groupformation_get_instance_by_id($this->groupformationid) === false)){
         $gfinstance = groupformation_get_instance_by_id($this->groupformationid);
         $content->text .= "<div class='col'>";
         $content->text .= "<a href=\"/mod/groupformation/analysis_view.php?id=".groupformation_get_cm($this->groupformationid)."&do_show=analysis\" style='color: black'><div style='background:url(/blocks/groupformation_tracker/images/icon_20px.png) left no-repeat; padding-left: 22px; height: 20px;'><h5>";
@@ -95,8 +95,23 @@ public function get_content($userid){
             $content->text .= "</div>";
         }
         */
-        $controller = new gfTracker_user_content_controller($this->groupformationid,$userid);
-        $content->text .= $controller->get_content();
+
+        $gfinstance = groupformation_get_instance_by_id($this->groupformationid);
+
+        $users = groupformation_get_users($this->groupformationid);
+
+        $users = array_merge($users[0], $users[1]);
+
+        $foruser = in_array($userid, $users);
+
+
+
+        if (!$foruser) {
+            $content->text .= "<div class='col'><p>" . get_string('notforuser', 'block_groupformation_tracker') . "</p></div>";
+        } else {
+            $controller = new gfTracker_user_content_controller($this->groupformationid,$userid);
+            $content->text .= $controller->get_content();
+        }
 
     }
 

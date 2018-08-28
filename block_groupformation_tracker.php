@@ -121,7 +121,7 @@ class block_groupformation_tracker extends block_base {
     }
 
     public function instance_allow_multiple() {
-          return false;
+          return true;
     }
 
     public function has_config() {

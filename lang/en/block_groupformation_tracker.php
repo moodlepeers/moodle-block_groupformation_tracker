@@ -66,5 +66,6 @@ $string['submit_questionnaire'] = 'Please submit your answers to complete this a
 $string['pluginname'] = 'Groupformation Tracker';
 $string['language'] = 'en';
 $string['state'] = 'State';
+$string['notforuser'] = 'Nothing to track for you.';
 $string['gf_done_description'] = 'Groupformation is done. Please review the generated groups and adopt them to Moodle.';
 $string['selectactivity'] = 'Please select a Groupformation activity in order to track it with the block element.';

@@ -93,7 +93,10 @@ class block_groupformation_tracker extends block_base {
         $currentcontext = $this->page->context->get_course_context(false);
 
         $this->content = new stdClass();
-        $this->content->text = get_string('choosegf', 'block_groupformation_tracker');
+        if (has_capability('moodle/block:edit', $currentcontext))
+            $this->content->text = get_string('choosegf', 'block_groupformation_tracker');
+        else
+            $this->content->text = get_string('wait_for_teacher_choosegf', 'block_groupformation_tracker');
         // Use lang strings.
         // $this->content->text = get_string('string_identifier', 'block_groupformation_tracker');
 

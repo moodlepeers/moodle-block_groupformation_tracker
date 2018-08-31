@@ -1,4 +1,27 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * Class gfTracker_content_controller
+ *
+ * @package block_groupformation_tracker
+ * @author Rene Roepke, Sven Timpe
+ * @copyright 2018 MoodlePeers
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -9,12 +32,19 @@ require_once($CFG->dirroot . '/blocks/groupformation_tracker/classes/controller/
 
 class gfTracker_content_controller{
 
+/** @var null context of current page */
 private $context = null;
-
+/** @var int ID of course */
 private $courseid = null;
-
+/** @var int ID of groupformation*/
 private $groupformationid = null;
 
+/**
+ * gfTracker_content_controller constructor.
+ * @param $context
+ * @param $courseid
+ * @param $groupformationid
+ */
 public function __construct($context, $courseid, $groupformationid)
 {
     $this->context = $context;
@@ -24,6 +54,14 @@ public function __construct($context, $courseid, $groupformationid)
     $this->groupformationid = $groupformationid;
 }
 
+    /**
+     * Returns block content
+     *
+     * @param $userid
+     * @return stdClass
+     * @throws coding_exception
+     * @throws dml_exception
+     */
 public function get_content($userid){
 
     global $PAGE;
@@ -37,7 +75,9 @@ public function get_content($userid){
 
     $foruser = in_array($userid, $users);
 
+
     if (!(groupformation_get_instance_by_id($this->groupformationid) === false)){
+        // shows an icon and the name of the groupformation at the top of the page
         $gfinstance = groupformation_get_instance_by_id($this->groupformationid);
         $content->text .= "<div class='col'>";
         if ($foruser)
@@ -52,61 +92,14 @@ public function get_content($userid){
         $content->text .= "</div>";
     }
 
-    /*
-    //menu to choose the groupformation
-    $content->text .= "<div class=\"btn-group btn-group-toggle\" data-toggle=\"buttons\">";
-    $gfinstances = groupformation_get_instances($this->courseid);
-    $first = false;
-    foreach ($gfinstances as $gfinstance) {
 
-        $content->text .= "<label class=\"btn btn-outline-primary";
-        if ($first){
-            $content->text .= " active";
-        }
-        $content->text .= "\">";
-        $content->text .= "<input type=\"radio\" name=\"options\" ";
-        $id = "groupformation_tracker_instance";
-        $id .= $gfinstance->id;
-        $content->text .= "id =\"";
-        $content->text .= $id;
-        $content->text .= "\" autocomplete=\"off\"";
-        if ($first) {
-            $content->text .= "checked";
-            $first = false;
-        }
-        $content->text .= "onclick=\"dropdown_click()\">";
-        $content->text .= $gfinstance->name;
-        $content->text .= "</label>";
-
-
-    }
-    $content->text .= "</div>";
-    */
-
-    //$content->text .= "<div id=\"groupformation_tracker_dropdown_content\">";
     if (has_capability('moodle/block:edit', $this->context)){
-        /*
-        foreach ($gfinstances as $gfinstance){
-            $content->text .= "<div id=\"groupformation_tracker_dropdown_content";
-            $content->text .= $gfinstance->id;
-            $content->text .= "\" style=\"display: block\">";
-            $content->text .= $this->get_teacher_content($gfinstance->id);
-            $content->text .= "</div>";
-        }
-        */
+        // it´s a teacher
         $controller = new gfTracker_teacher_content_controller($this->groupformationid);
         $content->text .= $controller->get_content();
 
     } else {
-        /*
-        foreach ($gfinstances as $gfinstance){
-            $content->text .= "<div id=\"groupformation_tracker_dropdown_content";
-            $content->text .= $gfinstance->id;
-            $content->text .= "\" style=\"display: block\">";
-            $content->text .= $this->get_user_content($userid, $gfinstance->id);
-            $content->text .= "</div>";
-        }
-        */
+        // it´s a student
 
         $users = groupformation_get_users($this->groupformationid);
 
@@ -126,7 +119,6 @@ public function get_content($userid){
     }
 
     $content->text .= "</div>";
-    //var_dump($content->text);
 
     return $content;
 }

@@ -1,4 +1,27 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * Class gfTracker_teacher_content_controller
+ *
+ * @package block_groupformation_tracker
+ * @author Rene Roepke, Sven Timpe
+ * @copyright 2018 MoodlePeers
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -6,14 +29,23 @@ require_once($CFG->dirroot . '/mod/groupformation/externallib.php');
 
 class gfTracker_teacher_content_controller{
 
+    /** @var int ID of groupformation */
     private $groupformationid = null;
 
+    /** @var mixed|null groupformationstate of activity */
     private $activity_state = null;
 
+    /** @var gfTracker_badge_controller|null  */
     private $badge_controller = null;
 
+    /** @var int cm of groupformation */
     private $groupformationcm = null;
 
+    /**
+     * gfTracker_teacher_content_controller constructor.
+     * @param $groupformationid
+     * @throws dml_exception
+     */
     public function __construct($groupformationid)
     {
         $this->groupformationid = $groupformationid;
@@ -25,6 +57,13 @@ class gfTracker_teacher_content_controller{
         $this->groupformationcm = groupformation_get_cm($groupformationid);
     }
 
+    /**
+     * Returns a part of block content
+     *
+     * @return string
+     * @throws coding_exception
+     * @throws dml_exception
+     */
     public function get_content(){
         $text = "";
 
@@ -73,6 +112,13 @@ class gfTracker_teacher_content_controller{
         return $text;
     }
 
+    /**
+     * Returns content for activity state 'q_open'
+     *
+     * @return string
+     * @throws coding_exception
+     * @throws dml_exception
+     */
     public function content_open(){
 
         $gfinformation = groupformation_get_progress_statistics($this->groupformationid);
@@ -97,6 +143,12 @@ class gfTracker_teacher_content_controller{
         return $text;
     }
 
+    /**
+     * Returns content for activity state 'q_closed'
+     *
+     * @return string
+     * @throws coding_exception
+     */
     public function content_closed(){
 
         $text = "<div class='col'>";
@@ -112,6 +164,12 @@ class gfTracker_teacher_content_controller{
         return $text;
     }
 
+    /**
+     * Returns content for activity state 'gf_started'
+     *
+     * @return string
+     * @throws coding_exception
+     */
     public function content_gf_started(){
 
         $text = "<div class='col'>";
@@ -125,6 +183,12 @@ class gfTracker_teacher_content_controller{
         return $text;
     }
 
+    /**
+     * Returns content for activity state 'gf_aborted'
+     *
+     * @return string
+     * @throws coding_exception
+     */
     public function content_gf_aborted(){
 
         $text = "<div class='col'>";
@@ -138,6 +202,12 @@ class gfTracker_teacher_content_controller{
         return $text;
     }
 
+    /**
+     * Returns content for activity state 'gf_done'
+     *
+     * @return string
+     * @throws coding_exception
+     */
     public function content_gf_done(){
 
         $text = "<div class='col'>";
@@ -153,6 +223,12 @@ class gfTracker_teacher_content_controller{
         return $text;
     }
 
+    /**
+     * Returns content for activity state 'ga_started'
+     *
+     * @return string
+     * @throws coding_exception
+     */
     public function content_ga_started(){
 
         $text = "<div class='col'>";
@@ -166,6 +242,12 @@ class gfTracker_teacher_content_controller{
         return $text;
     }
 
+    /**
+     * Returns content for activity state 'ga_done'
+     *
+     * @return string
+     * @throws coding_exception
+     */
     public function content_ga_done(){
 
         $text = "<div class='col'>";
@@ -181,6 +263,13 @@ class gfTracker_teacher_content_controller{
         return $text;
     }
 
+    /**
+     * Returns content for activity state 'q_reopened'
+     *
+     * @return string
+     * @throws coding_exception
+     * @throws dml_exception
+     */
     public function content_reopened(){
         $gfinformation = groupformation_get_progress_statistics($this->groupformationid);
         if ($gfinformation["enrolled"] == 0){

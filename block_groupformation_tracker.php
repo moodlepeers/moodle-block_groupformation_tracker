@@ -18,6 +18,7 @@
  * Class block_pseudolearner
  *
  * @package block_groupformation_tracker
+ * @author Rene Roepke, Sven Timpe
  * @copyright 2018 MoodlePeers
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

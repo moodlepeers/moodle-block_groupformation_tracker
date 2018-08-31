@@ -1,5 +1,27 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Class gfTracker_badge_controller
+ *
+ * @package block_groupformation_tracker
+ * @author Rene Roepke, Sven Timpe
+ * @copyright 2018 MoodlePeers
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot . '/blocks/groupformation_tracker/classes/utilities.php');
@@ -8,6 +30,13 @@ use groupformation_tracker\utilities;
 class gfTracker_badge_controller{
 
 
+    /**
+     * Returns html code for a badge element
+     *
+     * @param $state_type
+     * @return string
+     * @throws coding_exception
+     */
     public function state_badge($state_type){
         $text = "";
         $text .= "<h6>".get_string("state","block_groupformation_tracker").": ";
@@ -58,28 +87,13 @@ class gfTracker_badge_controller{
         return $text;
     }
 
-
-    /*
-    public function get_go_to_questionnaire_button($groupformationcm){
-
-        $text = "<a href=\"/mod/groupformation/view.php?id=";
-        $text .= $groupformationcm;
-        $text .= "\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">go to questionnaire</a>";
-
-        return $text;
-    }
-    */
-
-    public function get_go_to_questionnaire_answering_button($groupformationcm){
-
-        //link muss noch angepasst werden. bisher nur anfang questionnaire
-        $text = "<a href=\"/mod/groupformation/questionnaire_view.php?id=";
-        $text .= $groupformationcm;
-        $text .= "&direction=1\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\" >".get_string('to_questionnaire', 'block_groupformation_tracker')."</a>";
-
-        return $text;
-    }
-
+    /**
+     * Returns html code of a linked Button to a questionnaire
+     *
+     * @param $gfcm
+     * @param $string
+     * @return string
+     */
     public function get_go_to_questionnaire_button($gfcm, $string){
         $url = "/mod/groupformation/questionnaire_view.php?id=".$gfcm."&direction=1";
 
@@ -87,6 +101,12 @@ class gfTracker_badge_controller{
     }
 
 
+    /**
+     * Returns html code of a linked Button to a groupformation
+     * @param $gfcm
+     * @param $string
+     * @return string
+     */
 
     public function get_go_to_groupformation_button($gfcm, $string){
         $url = "/mod/groupformation/grouping_view.php?id=".$gfcm."&do_show=grouping";
@@ -94,20 +114,37 @@ class gfTracker_badge_controller{
         return  utilities::get_link_button($url, $string);
     }
 
+    /**
+     * Returns html code of a linked Button to the overview Page of a groupformation
+     * @param $gfcm
+     * @param $string
+     * @return string
+     */
     public function get_go_to_overview_button($gfcm, $string){
         $url = "/mod/groupformation/analysis_view.php?id=".$gfcm."&do_show=analysis";
 
         return  utilities::get_link_button($url, $string);
     }
 
+    /**
+     * Returns html code of a linked Button to the user-overview Page of a groupformation
+     * @param $gfcm
+     * @param $string
+     * @return string
+     */
     public function get_go_to_user_overview_button($gfcm, $string){
         $url = "/mod/groupformation/view.php?id=".$gfcm;
 
         return  utilities::get_link_button($url, $string);
     }
 
+    /**
+     * Returns html code of a linked Button to the evaluation of a groupformation
+     * @param $groupformationcm
+     * @return string
+     * @throws coding_exception
+     */
     public function get_see_evaluation_button($groupformationcm){
-        // TODOTODO muss man nicht immer anzeigen
 
         $text = "<a href=\"/mod/groupformation/evaluation_view.php?id=";
         $text .= $groupformationcm;
@@ -117,6 +154,11 @@ class gfTracker_badge_controller{
         return $text;
     }
 
+    /**
+     * Returns html code of a Button, whitch reloads the current page
+     *
+     * @return string
+     */
     public function get_reload_button(){
         $text = "<a href=\"javascript:window.location.reload(true)\" class=\"btn btn-outline-primary\" 
         style='background:url(/blocks/groupformation_tracker/images/recycle-159650_640_20px.png) center no-repeat; float: right; height: 20px; width: 20px; padding: 4px;' 
@@ -125,6 +167,13 @@ class gfTracker_badge_controller{
         return $text;
     }
 
+    /**
+     * Returns html code of a progress bar
+     *
+     * @param $percent
+     * @return string
+     * @throws coding_exception
+     */
     public function get_progressbar($percent) {
         $s = '';
         if ($percent < 25){

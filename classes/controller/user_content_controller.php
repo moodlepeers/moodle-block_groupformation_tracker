@@ -339,9 +339,9 @@ class gfTracker_user_content_controller{
     public function content_answering_open($state = "open") {
 
         $dates = groupformation_get_dates($this->groupformationid);
-        $numberOfQuestions = groupformation_get_number_of_questions($this->groupformationid);
-        $questionsReady = groupformation_get_number_of_answered_questions($this->groupformationid, $this->userid);
-        $progress = ($questionsReady / $numberOfQuestions) * 100;
+        $numberofquestions = groupformation_get_number_of_questions($this->groupformationid);
+        $questionsready = groupformation_get_number_of_answered_questions($this->groupformationid, $this->userid);
+        $progress = ($questionsready / $numberofquestions) * 100;
         $progress = round($progress, 2);
         $text = "<div class='col'>";
         $text .= $this->badgecontroller->state_badge($state);
@@ -382,12 +382,12 @@ class gfTracker_user_content_controller{
      * @return string
      * @throws coding_exception
      */
-    public function content_submitted($gfBool = false) {
+    public function content_submitted($gfbool = false) {
 
         $text = "<div class='col'>";
         $text .= $this->badgecontroller->state_badge("submitted");
         $text .= "</div>";
-        if ($gfBool) {
+        if ($gfbool) {
             $text .= "<div class='col'>";
             $text .= "<p>".get_string('gf_started_wait_for_teacher', 'block_groupformation_tracker')."</p>";
             $text .= "</div>";

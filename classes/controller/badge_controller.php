@@ -195,18 +195,7 @@ class gfTracker_badge_controller{
         }
         $s .= '<div class="progress">';
 
-        $s .= '    <div style="width:' . $percent . '%;
-        height: 100%;
-        font-size: 12px;
-        line-height: 20px;
-        color: #fff;
-        text-align: center;
-        background-color: #18b410;
-        -webkit-box-shadow: inset 0 -1px 0 rgba(0,0,0,.15);
-        box-shadow: inset 0 -1px 0 rgba(0,0,0,.15);
-        -webkit-transition: width .6s ease;
-        -o-transition: width .6s ease;
-        transition: width .6s ease;" class="questionaire_progress-bar" role="progressbar" aria-valuenow="' . $percent .
+        $s .= '<div style="width:' . $percent . '%;" class="block-groupformation-tracker-progress-bar" role="progressbar" aria-valuenow="' . $percent .
             '" aria-valuemin="0" aria-valuemax="100" >';
         if ($percent >= 25) {
             $s .= $percent.' %';

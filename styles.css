@@ -1198,3 +1198,35 @@
 .alert {
     max-width: 750px;
 }
+
+.block-groupformation-tracker-name-link {
+    color: black;
+}
+
+.block-groupformation-tracker-gfname {
+    background: url(/blocks/groupformation_tracker/images/icon_20px.png) left no-repeat;
+    padding-left: 22px;
+    height: 20px;
+}
+
+.block-groupformation-tracker-reload-button {
+    background: url(/blocks/groupformation_tracker/images/recycle-159650_640_20px.png) center no-repeat;
+    float: right;
+    height: 20px;
+    width: 20px;
+    padding: 4px;
+}
+
+.block-groupformation-tracker-progress-bar {
+    height: 100%;
+    font-size: 12px;
+    line-height: 20px;
+    color: #fff;
+    text-align: center;
+    background-color: #18b410;
+    -webkit-box-shadow: inset 0 -1px 0 rgba(0,0,0,.15);
+    box-shadow: inset 0 -1px 0 rgba(0,0,0,.15);
+    -webkit-transition: width .6s ease;
+    -o-transition: width .6s ease;
+    transition: width .6s ease;
+}

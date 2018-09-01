@@ -80,10 +80,9 @@ class gfTracker_content_controller{
             $content->text .= "<div class='col'>";
             if ($foruser) {
                 $content->text .= "<a href=\"/mod/groupformation/analysis_view.php?id="
-                    .groupformation_get_cm($this->groupformationid)."&do_show=analysis\" style='color: black'>";
+                    .groupformation_get_cm($this->groupformationid)."&do_show=analysis\" class=\"block-groupformation-tracker-name-link\">";
             }
-            $content->text .= "<div style='background:url(/blocks/groupformation_tracker/images/icon_20px.png)
-            left no-repeat; padding-left: 22px; height: 20px;'>";
+            $content->text .= "<div class='block-groupformation-tracker-gfname'>";
             $content->text .= "<h5>";
             $content->text .= $gfinstance->name;
             $content->text .= "</h5>";

@@ -37,48 +37,58 @@ class gfTracker_badge_controller{
      * @return string
      * @throws coding_exception
      */
-    public function state_badge($state_type){
+    public function state_badge($state) {
         $text = "";
-        $text .= "<h6>".get_string("state","block_groupformation_tracker").": ";
-        switch ($state_type){
+        $text .= "<h6>".get_string("state", "block_groupformation_tracker").": ";
+        switch ($state){
             case "open":
-                $text .= "<span class=\"badge badge-pill badge-success\"><b>".get_string('open', 'block_groupformation_tracker')."</b></span><br>";
+                $text .= "<span class=\"badge badge-pill badge-success\"><b>"
+                    .get_string('open', 'block_groupformation_tracker')."</b></span><br>";
                 break;
 
             case "closed":
-                $text .= "<span class=\"badge badge-pill badge-danger\"><b>".get_string('closed', 'block_groupformation_tracker')."</b></span><br>";
+                $text .= "<span class=\"badge badge-pill badge-danger\"><b>"
+                    .get_string('closed', 'block_groupformation_tracker')."</b></span><br>";
                 break;
 
             case "gf_started":
-                $text .= "<span class=\"badge badge-pill badge-warning\"><b>".get_string('gf_started', 'block_groupformation_tracker')."</b></span><br>";
+                $text .= "<span class=\"badge badge-pill badge-warning\"><b>"
+                    .get_string('gf_started', 'block_groupformation_tracker')."</b></span><br>";
                 break;
 
             case "gf_aborted":
-                $text .= "<span class=\"badge badge-pill badge-danger\"><b>".get_string('gf_aborted', 'block_groupformation_tracker')."</b></span><br>";
+                $text .= "<span class=\"badge badge-pill badge-danger\"><b>"
+                    .get_string('gf_aborted', 'block_groupformation_tracker')."</b></span><br>";
                 break;
 
             case "gf_done":
-                $text .= "<span class=\"badge badge-pill badge-success\"><b>".get_string('gf_done', 'block_groupformation_tracker')."</b></span><br>";
+                $text .= "<span class=\"badge badge-pill badge-success\"><b>"
+                    .get_string('gf_done', 'block_groupformation_tracker')."</b></span><br>";
                 break;
 
             case "ga_started":
-                $text .= "<span class=\"badge badge-pill badge-warning\"><b>".get_string('ga_started', 'block_groupformation_tracker')."</b></span><br>";
+                $text .= "<span class=\"badge badge-pill badge-warning\"><b>"
+                    .get_string('ga_started', 'block_groupformation_tracker')."</b></span><br>";
                 break;
 
             case "ga_done":
-                $text .= "<span class=\"badge badge-pill badge-success\"><b>".get_string('ga_done', 'block_groupformation_tracker')."</b></span><br>";
+                $text .= "<span class=\"badge badge-pill badge-success\"><b>"
+                    .get_string('ga_done', 'block_groupformation_tracker')."</b></span><br>";
                 break;
 
             case "reopened":
-                $text .= "<span class=\"badge badge-pill badge-success\"><b>".get_string('reopened', 'block_groupformation_tracker')."</b></span><br>";
+                $text .= "<span class=\"badge badge-pill badge-success\"><b>"
+                    .get_string('reopened', 'block_groupformation_tracker')."</b></span><br>";
                 break;
 
             case "submitted":
-                $text .= "<span class=\"badge badge-pill badge-warning\"><b>".get_string('submitted', 'block_groupformation_tracker')."</b></span><br>";
+                $text .= "<span class=\"badge badge-pill badge-warning\"><b>"
+                    .get_string('submitted', 'block_groupformation_tracker')."</b></span><br>";
                 break;
 
             default:
-                $text .= "<span class=\"badge badge-pill badge-danger\"><b>".get_string('non_ex_state', 'block_groupformation_tracker')."</b></span><br>";
+                $text .= "<span class=\"badge badge-pill badge-danger\"><b>"
+                    .get_string('non_ex_state', 'block_groupformation_tracker')."</b></span><br>";
                 break;
         }
 
@@ -94,7 +104,7 @@ class gfTracker_badge_controller{
      * @param $string
      * @return string
      */
-    public function get_go_to_questionnaire_button($gfcm, $string){
+    public function get_go_to_questionnaire_button($gfcm, $string) {
         $url = "/mod/groupformation/questionnaire_view.php?id=".$gfcm."&direction=1";
 
         return  utilities::get_link_button($url, $string);
@@ -108,7 +118,7 @@ class gfTracker_badge_controller{
      * @return string
      */
 
-    public function get_go_to_groupformation_button($gfcm, $string){
+    public function get_go_to_groupformation_button($gfcm, $string) {
         $url = "/mod/groupformation/grouping_view.php?id=".$gfcm."&do_show=grouping";
 
         return  utilities::get_link_button($url, $string);
@@ -120,7 +130,7 @@ class gfTracker_badge_controller{
      * @param $string
      * @return string
      */
-    public function get_go_to_overview_button($gfcm, $string){
+    public function get_go_to_overview_button($gfcm, $string) {
         $url = "/mod/groupformation/analysis_view.php?id=".$gfcm."&do_show=analysis";
 
         return  utilities::get_link_button($url, $string);
@@ -132,7 +142,7 @@ class gfTracker_badge_controller{
      * @param $string
      * @return string
      */
-    public function get_go_to_user_overview_button($gfcm, $string){
+    public function get_go_to_user_overview_button($gfcm, $string) {
         $url = "/mod/groupformation/view.php?id=".$gfcm;
 
         return  utilities::get_link_button($url, $string);
@@ -144,12 +154,12 @@ class gfTracker_badge_controller{
      * @return string
      * @throws coding_exception
      */
-    public function get_see_evaluation_button($groupformationcm){
+    public function get_see_evaluation_button($groupformationcm) {
 
         $text = "<a href=\"/mod/groupformation/evaluation_view.php?id=";
         $text .= $groupformationcm;
-        $text .= "&do_show=evaluation\" class=\"btn btn-outline-primary\" id=\"evaluation\" role=\"button\" aria-pressed=\"true\">".get_string('see_evaluation', 'block_groupformation_tracker')."</a>";
-        //var_dump($text);
+        $text .= "&do_show=evaluation\" class=\"btn btn-outline-primary\"
+        id=\"evaluation\" role=\"button\" aria-pressed=\"true\">".get_string('see_evaluation', 'block_groupformation_tracker')."</a>";
 
         return $text;
     }
@@ -159,9 +169,9 @@ class gfTracker_badge_controller{
      *
      * @return string
      */
-    public function get_reload_button(){
-        $text = "<a href=\"javascript:window.location.reload(true)\" class=\"btn btn-outline-primary\" 
-        style='background:url(/blocks/groupformation_tracker/images/recycle-159650_640_20px.png) center no-repeat; float: right; height: 20px; width: 20px; padding: 4px;' 
+    public function get_reload_button() {
+        $text = "<a href=\"javascript:window.location.reload(true)\" class=\"btn btn-outline-primary\"
+        style='background:url(/blocks/groupformation_tracker/images/recycle-159650_640_20px.png) center no-repeat; float: right; height: 20px; width: 20px; padding: 4px;'
         id=\"evaluation\" role=\"button\" aria-pressed=\"true\"></a>";
 
         return $text;
@@ -176,7 +186,7 @@ class gfTracker_badge_controller{
      */
     public function get_progressbar($percent) {
         $s = '';
-        if ($percent < 25){
+        if ($percent < 25) {
             $s .= "<div class=progress_text>";
             $s .= get_string('percentage', 'block_groupformation_tracker');
             $s .= ' '.$percent.' %';
@@ -197,10 +207,10 @@ class gfTracker_badge_controller{
         -o-transition: width .6s ease;
         transition: width .6s ease;" class="questionaire_progress-bar" role="progressbar" aria-valuenow="' . $percent .
             '" aria-valuemin="0" aria-valuemax="100" >';
-        if ($percent >= 25){
+        if ($percent >= 25) {
             $s .= $percent.' %';
         }
-        $s .='</div>';
+        $s .= '</div>';
         $s .= '</div>';
 
         return $s;

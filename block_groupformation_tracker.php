@@ -74,7 +74,7 @@ class block_groupformation_tracker extends block_base {
      */
     public function get_content() {
 
-        global $USER, $COURSE;
+        global $USER;
 
         if ($this->content !== null) {
             return $this->content;

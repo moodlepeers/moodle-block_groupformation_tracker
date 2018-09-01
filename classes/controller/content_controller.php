@@ -63,8 +63,6 @@ class gfTracker_content_controller{
          */
     public function get_content($userid) {
 
-        global $PAGE;
-
         $content = new stdClass();
         $content->text = "<div class='container' style='width: auto;'>";
 

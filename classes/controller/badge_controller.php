@@ -85,11 +85,6 @@ class gfTracker_badge_controller{
                 $text .= "<span class=\"badge badge-pill badge-warning\"><b>"
                     .get_string('submitted', 'block_groupformation_tracker')."</b></span><br>";
                 break;
-
-            default:
-                $text .= "<span class=\"badge badge-pill badge-danger\"><b>"
-                    .get_string('non_ex_state', 'block_groupformation_tracker')."</b></span><br>";
-                break;
         }
 
         $text .= "</h6>";

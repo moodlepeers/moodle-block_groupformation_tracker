@@ -62,8 +62,9 @@ class utilities {
      * @param $string
      * @return string
      */
-    public static function get_link_button($url, $string){
-        $text = "<a href=\"".$url."\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\" style='margin-bottom: 3px; margin-top:3px'>".$string."</a>";
+    public static function get_link_button($url, $string) {
+        $text = "<a href=\"".$url."\" class=\"btn btn-outline-primary\"
+        role=\"button\" aria-pressed=\"true\" style='margin-bottom: 3px; margin-top:3px'>".$string."</a>";
 
         return $text;
     }

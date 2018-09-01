@@ -158,8 +158,8 @@ class gfTracker_badge_controller{
 
         $text = "<a href=\"/mod/groupformation/evaluation_view.php?id=";
         $text .= $groupformationcm;
-        $text .= "&do_show=evaluation\" class=\"btn btn-outline-primary\"
-        id=\"evaluation\" role=\"button\" aria-pressed=\"true\">".get_string('see_evaluation', 'block_groupformation_tracker')."</a>";
+        $text .= "&do_show=evaluation\" class=\"btn btn-outline-primary\" id=\"evaluation\" role=\"button\" aria-pressed=\"true\">"
+            .get_string('see_evaluation', 'block_groupformation_tracker')."</a>";
 
         return $text;
     }
@@ -171,7 +171,8 @@ class gfTracker_badge_controller{
      */
     public function get_reload_button() {
         $text = "<a href=\"javascript:window.location.reload(true)\" class=\"btn btn-outline-primary\"
-        style='background:url(/blocks/groupformation_tracker/images/recycle-159650_640_20px.png) center no-repeat; float: right; height: 20px; width: 20px; padding: 4px;'
+        style='background:url(/blocks/groupformation_tracker/images/recycle-159650_640_20px.png)
+        center no-repeat; float: right; height: 20px; width: 20px; padding: 4px;'
         id=\"evaluation\" role=\"button\" aria-pressed=\"true\"></a>";
 
         return $text;

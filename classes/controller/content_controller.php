@@ -78,14 +78,19 @@ class gfTracker_content_controller{
             // Shows an icon and the name of the groupformation at the top of the page.
             $gfinstance = groupformation_get_instance_by_id($this->groupformationid);
             $content->text .= "<div class='col'>";
-            if ($foruser) $content->text .= "<a href=\"/mod/groupformation/analysis_view.php?id="
-                .groupformation_get_cm($this->groupformationid)."&do_show=analysis\" style='color: black'>";
-            $content->text .= "<div style='background:url(/blocks/groupformation_tracker/images/icon_20px.png) left no-repeat; padding-left: 22px; height: 20px;'>";
+            if ($foruser) {
+                $content->text .= "<a href=\"/mod/groupformation/analysis_view.php?id="
+                    .groupformation_get_cm($this->groupformationid)."&do_show=analysis\" style='color: black'>";
+            }
+            $content->text .= "<div style='background:url(/blocks/groupformation_tracker/images/icon_20px.png)
+            left no-repeat; padding-left: 22px; height: 20px;'>";
             $content->text .= "<h5>";
             $content->text .= $gfinstance->name;
             $content->text .= "</h5>";
             $content->text .= "</div>";
-            if ($foruser) $content->text .= "</a>";
+            if ($foruser) {
+                $content->text .= "</a>";
+            }
             $content->text .= "</div>";
         }
 

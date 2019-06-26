@@ -36,87 +36,103 @@ class gfTracker_content_controller{
     private $context = null;
     /** @var int ID of course */
     private $courseid = null;
-    /** @var int ID of groupformation*/
-    private $groupformationid = null;
+    /** @var array of groupformations*/
+    private $groupformationids = null;
 
     /**
      * gfTracker_content_controller constructor.
      * @param $context
      * @param $courseid
-     * @param $groupformationid
+     * @param $groupformationids
      */
-    public function __construct($context, $courseid, $groupformationid) {
+    public function __construct($context, $courseid, $groupformationids) {
         $this->context = $context;
 
         $this->courseid = $courseid;
 
-        $this->groupformationid = $groupformationid;
+        $this->groupformationids = $groupformationids;
     }
 
-        /**
-         * Returns block content
-         *
-         * @param $userid
-         * @return stdClass
-         * @throws coding_exception
-         * @throws dml_exception
-         */
-    public function get_content($userid) {
+    public function get_content($userid){
 
         $content = new stdClass();
-        $content->text = "<div class='container' style='width: auto;'>";
+        $content->text = '';
 
-        $users = groupformation_get_users($this->groupformationid);
+        for ($i = 0; $i < count($this->groupformationids); $i++){
+            $content->text .= $this->get_content_for_gfid($userid, $this->groupformationids[$i]);
+            if ($i < count($this->groupformationids)-1){
+                $content->text .= '<hr/>';
+            }
+        }
+
+        return $content;
+    }
+
+    /**
+     * Returns block content for groupformation with id $gfid
+     *
+     * @param $userid
+     * @param $gfid
+     * @return stdClass
+     * @throws coding_exception
+     * @throws dml_exception
+     */
+    public function get_content_for_gfid($userid, $gfid) {
+
+
+        $text = "<div class='container' style='width: auto;'>";
+
+        $users = groupformation_get_users($gfid);
 
         $users = array_merge($users[0], $users[1]);
 
         $foruser = in_array($userid, $users);
 
-        if (!(groupformation_get_instance_by_id($this->groupformationid) === false)) {
+        if (!(groupformation_get_instance_by_id($gfid) === false)) {
             // Shows an icon and the name of the groupformation at the top of the page.
-            $gfinstance = groupformation_get_instance_by_id($this->groupformationid);
-            $content->text .= "<div class='col'>";
+            $gfinstance = groupformation_get_instance_by_id($gfid);
+            $text .= "<div class='col'>";
             if ($foruser) {
-                $content->text .= "<a href=\"/mod/groupformation/analysis_view.php?id="
-                    .groupformation_get_cm($this->groupformationid)."&do_show=analysis\" class=\"block-groupformation-tracker-name-link\">";
+                $text .= "<a href=\"/mod/groupformation/analysis_view.php?id="
+                    .groupformation_get_cm($gfid)."&do_show=analysis\" class=\"block-groupformation-tracker-name-link\">";
             }
-            $content->text .= "<div class='block-groupformation-tracker-gfname'>";
-            $content->text .= "<h5>";
-            $content->text .= $gfinstance->name;
-            $content->text .= "</h5>";
-            $content->text .= "</div>";
+            $text .= "<div class='block-groupformation-tracker-gfname'>";
+            $text .= "<h5>";
+            $text .= $gfinstance->name;
+            $text .= "</h5>";
+            $text .= "</div>";
             if ($foruser) {
-                $content->text .= "</a>";
+                $text .= "</a>";
             }
-            $content->text .= "</div>";
+            $text .= "</div>";
         }
 
         if (has_capability('moodle/block:edit', $this->context)) {
             // It´s a teacher.
-            $controller = new gfTracker_teacher_content_controller($this->groupformationid);
-            $content->text .= $controller->get_content();
+            $controller = new gfTracker_teacher_content_controller($gfid);
+            $text .= $controller->get_content();
 
         } else {
             // It´s a student.
 
-            $users = groupformation_get_users($this->groupformationid);
+            $users = groupformation_get_users($gfid);
 
             $users = array_merge($users[0], $users[1]);
 
             $foruser = in_array($userid, $users);
 
             if (!$foruser) {
-                $content->text .= "<div class='col'><p>" . get_string('notforuser', 'block_groupformation_tracker') . "</p></div>";
+                $text .= "<div class='col'><p>" . get_string('notforuser', 'block_groupformation_tracker') . "</p></div>";
             } else {
-                $controller = new gfTracker_user_content_controller($this->groupformationid, $userid);
-                $content->text .= $controller->get_content();
+                $controller = new gfTracker_user_content_controller($gfid, $userid);
+                $text .= $controller->get_content();
             }
 
         }
 
-        $content->text .= "</div>";
+        $text .= "</div>";
 
-        return $content;
+        return $text;
     }
 
 }

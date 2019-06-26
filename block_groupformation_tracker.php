@@ -26,6 +26,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot . '/blocks/groupformation_tracker/classes/controller/content_controller.php');
+require_once($CFG->dirroot . '/mod/groupformation/externallib.php');
+
 
 class block_groupformation_tracker extends block_base {
 
@@ -106,8 +108,14 @@ class block_groupformation_tracker extends block_base {
         }
 
         if (isset($this->config->groupformationid) && groupformation_check_instance($this->config->groupformationid)) {
+            $ids = array();
+            $instances = groupformation_get_instances($this->page->course->id);
+            foreach ($instances as $instance => $key){
+                array_push($ids, $instance);
+            }
+            var_dump($ids);
             $controller = new gfTracker_content_controller
-            ($currentcontext, $this->page->course->id, $this->config->groupformationid);
+            ($currentcontext, $this->page->course->id, $ids);
             $this->content = $controller->get_content($USER->id);
         }
 

@@ -1230,3 +1230,7 @@
     -o-transition: width .6s ease;
     transition: width .6s ease;
 }
+
+.hr {
+    color: red;
+}

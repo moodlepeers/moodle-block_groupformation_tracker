@@ -113,7 +113,6 @@ class block_groupformation_tracker extends block_base {
             foreach ($instances as $instance => $key){
                 array_push($ids, $instance);
             }
-            var_dump($ids);
             $controller = new gfTracker_content_controller
             ($currentcontext, $this->page->course->id, $ids);
             $this->content = $controller->get_content($USER->id);

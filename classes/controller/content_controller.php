@@ -40,6 +40,8 @@ class gfTracker_content_controller{
     private $groupformationids = null;
     /** @var string shows whether it is a student or a teacher */
     private $role = null;
+    /** @var gfTracker_badge_controller */
+    private $badgecontroller = null;
 
     /**
      * gfTracker_content_controller constructor.
@@ -53,6 +55,8 @@ class gfTracker_content_controller{
         $this->courseid = $courseid;
 
         $this->groupformationids = $groupformationids;
+
+        $this->badgecontroller = new gfTracker_badge_controller();
 
         if (has_capability('moodle/block:edit', $this->context)){
             // It is a teacher.
@@ -137,6 +141,20 @@ class gfTracker_content_controller{
                 $text .= "<a href=\"/mod/groupformation/analysis_view.php?id="
                     .groupformation_get_cm($gfid)."&do_show=analysis\" class=\"block-groupformation-tracker-name-link\">";
             }
+
+            $buttonname = 'tracker_button_gfid_'.$gfid.'_userid_'.$userid;
+            $tracker_button = optional_param($buttonname, null, PARAM_INT);
+            $tracked = get_gf_tracked_for_user($userid, $gfid);
+            if (isset($tracker_button)) {
+                if ($tracked) {
+                    $tracked = 0;
+                } else if (!$tracked) {
+                    $tracked = 1;
+                }
+                set_gf_tracked_for_user($userid, $gfid, $tracked);
+            }
+
+            $text .= $this->badgecontroller->get_tracker_button($buttonname, $this->courseid);
             $text .= "<div class='block-groupformation-tracker-gfname'>";
             $text .= "<h5>";
             $text .= $gfinstance->name;
@@ -147,9 +165,12 @@ class gfTracker_content_controller{
             }
             $text .= "</div>";
 
+
+
+
             if (!$foruser) {
                 $text .= "<div class='col'><p>" . get_string('notforuser', 'block_groupformation_tracker') . "</p></div>";
-            } else {
+            } else if ($tracked) {
                 $controller = new gfTracker_user_content_controller($gfid, $userid);
                 $text .= $controller->get_content();
             }

@@ -174,6 +174,23 @@ class gfTracker_badge_controller{
     }
 
     /**
+     * Returns html code of a tracker button, which can show or hide the tracker information for a groupformation
+     *
+     * @return string
+     */
+    public function get_tracker_button($name, $courseid) {
+
+        $text = '<form action="/course/view.php?id='.$courseid.'" method="post">';
+        $text .= '<button type="submit" name="'.$name.'" class="btn btn-outline-primary" style="background:url(/blocks/groupformation_tracker/images/recycle-159650_640_20px.png)
+        center no-repeat; float: right; height: 20px; width: 20px; padding: 4px;">  T </button>';
+        $text .= '</form>';
+
+        return $text;
+
+        return $text;
+    }
+
+    /**
      * Returns html code of a progress bar
      *
      * @param $percent

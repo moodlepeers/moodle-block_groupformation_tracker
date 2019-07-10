@@ -199,6 +199,20 @@ class gfTracker_content_controller{
             $text .= "<a href=\"/mod/groupformation/analysis_view.php?id="
                 .groupformation_get_cm($gfid)."&do_show=analysis\" class=\"block-groupformation-tracker-name-link\">";
 
+            $buttonname = 'tracker_button_teacher_gfid_'.$gfid;
+            $tracker_button = optional_param($buttonname, null, PARAM_INT);
+            $tracked = get_gf_tracked_for_teacher($gfid);
+            if (isset($tracker_button)) {
+                if ($tracked) {
+                    $tracked = 0;
+                } else if (!$tracked) {
+                    $tracked = 1;
+                }
+                set_gf_tracked_for_teacher($gfid, $tracked);
+            }
+
+            $text .= $this->badgecontroller->get_tracker_button($buttonname, $this->courseid);
+
             $text .= "<div class='block-groupformation-tracker-gfname'>";
             $text .= "<h5>";
             $text .= $gfinstance->name;
@@ -208,8 +222,10 @@ class gfTracker_content_controller{
 
             $text .= "</div>";
 
-            $controller = new gfTracker_teacher_content_controller($gfid);
-            $text .= $controller->get_content();
+            if ($tracked) {
+                $controller = new gfTracker_teacher_content_controller($gfid);
+                $text .= $controller->get_content();
+            }
         }
 
         return $text;

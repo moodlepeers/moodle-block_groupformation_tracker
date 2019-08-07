@@ -1207,6 +1207,8 @@
     background: url(/blocks/groupformation_tracker/images/icon_20px.png) left no-repeat;
     padding-left: 22px;
     height: 20px;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .block-groupformation-tracker-reload-button {
@@ -1229,6 +1231,14 @@
     -webkit-transition: width .6s ease;
     -o-transition: width .6s ease;
     transition: width .6s ease;
+}
+
+.block-groupformation-tracker-col {
+    margin-top: 7px;
+}
+
+.block-groupformation-tracker-h5 {
+    margin-right: 5px;
 }
 
 .hr {

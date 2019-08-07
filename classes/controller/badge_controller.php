@@ -178,11 +178,12 @@ class gfTracker_badge_controller{
      *
      * @return string
      */
-    public function get_tracker_button($name, $courseid) {
+    public function get_tracker_button($name, $courseid, $direction = 'up') {
 
+        $icon = 'triangle-'. $direction.'.svg';
         $text = '<form action="/course/view.php?id='.$courseid.'" method="post">';
-        $text .= '<button type="submit" name="'.$name.'" class="btn btn-outline-primary" style="background:url(/blocks/groupformation_tracker/images/recycle-159650_640_20px.png)
-        center no-repeat; float: right; height: 20px; width: 20px; padding: 4px;">  T </button>';
+        $text .= '<button type="submit" name="'.$name.'" class="btn btn-outline-primary" style="background:url(/blocks/groupformation_tracker/images/'. $icon .')
+        center no-repeat; float: right; height: 20px; width: 20px; padding: 4px;"></button>';
         $text .= '</form>';
 
         return $text;

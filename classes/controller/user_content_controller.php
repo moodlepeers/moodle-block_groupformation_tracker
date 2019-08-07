@@ -82,7 +82,7 @@ class gfTracker_user_content_controller{
         $text = "";
 
         if (groupformation_get_instance_by_id($this->groupformationid) === false) {
-            $text .= "<div class='col'><p>";
+            $text .= "<div class='col block-groupformation-tracker-col'><p>";
             $text .= get_string('wait_for_teacher_choosegf', 'block_groupformation_tracker');
             $text .= "</p></div>";
 
@@ -279,18 +279,18 @@ class gfTracker_user_content_controller{
     public function content_started_open($state = "open") {
 
         $dates = groupformation_get_dates($this->groupformationid);
-        $text = "<div class='col'>";
+        $text = "<div class='col block-groupformation-tracker-col'>";
         $text .= $this->badgecontroller->state_badge($state);
         $text .= "</div>";
         if ($dates['end_raw'] >= time()) {
-            $text .= "<div class='col'>";
+            $text .= "<div class='col block-groupformation-tracker-col'>";
             $text .= "<p>".get_string('q_closed_at', 'block_groupformation_tracker').$dates['end']."</p>";
             $text .= "</div>";
         }
-        $text .= "<div class='col'>";
+        $text .= "<div class='col block-groupformation-tracker-col'>";
         $text .= "<p>".get_string('start_answering', 'block_groupformation_tracker')."</p>";
         $text .= "</div>";
-        $text .= "<div class='col'>";
+        $text .= "<div class='col block-groupformation-tracker-col'>";
         $text .= $this->badgecontroller->get_go_to_user_overview_button
         ($this->groupformationcm, get_string('go_to_activity', 'block_groupformation_tracker'));
         $text .= "</div>";
@@ -309,18 +309,18 @@ class gfTracker_user_content_controller{
     public function content_p_code_given_open($state = "open") {
 
         $dates = groupformation_get_dates($this->groupformationid);
-        $text = "<div class='col'>";
+        $text = "<div class='col block-groupformation-tracker-col'>";
         $text .= $this->badgecontroller->state_badge($state);
         $text .= "</div>";
         if ($dates['end_raw'] >= time()) {
-            $text .= "<div class='col'>";
+            $text .= "<div class='col block-groupformation-tracker-col'>";
             $text .= "<p>".get_string('q_closed_at', 'block_groupformation_tracker').$dates['end']."</p>";
             $text .= "</div>";
         }
-        $text .= "<div class='col'>";
+        $text .= "<div class='col block-groupformation-tracker-col'>";
         $text .= "<p>".get_string('start_answering', 'block_groupformation_tracker')."</p>";
         $text .= "</div>";
-        $text .= "<div class='col'>";
+        $text .= "<div class='col block-groupformation-tracker-col'>";
         $text .= $this->badgecontroller->get_go_to_questionnaire_button
         ($this->groupformationcm, get_string('to_questionnaire', 'block_groupformation_tracker'));
         $text .= "</div>";
@@ -343,30 +343,30 @@ class gfTracker_user_content_controller{
         $questionsready = groupformation_get_number_of_answered_questions($this->groupformationid, $this->userid);
         $progress = ($questionsready / $numberofquestions) * 100;
         $progress = round($progress, 2);
-        $text = "<div class='col'>";
+        $text = "<div class='col block-groupformation-tracker-col'>";
         $text .= $this->badgecontroller->state_badge($state);
         $text .= "</div>";
-        $text .= "<div class='col'>";
+        $text .= "<div class='col block-groupformation-tracker-col'>";
         $text .= $this->badgecontroller->get_progressbar($progress);
         $text .= "</div>";
         if ($dates['end_raw'] >= time()) {
-            $text .= "<div class='col'>";
+            $text .= "<div class='col block-groupformation-tracker-col'>";
             $text .= "<p>".get_string('q_closed_at', 'block_groupformation_tracker').$dates['end']."</p>";
             $text .= "</div>";
         }
         if ($progress == 100) {
-            $text .= "<div class='col'>";
+            $text .= "<div class='col block-groupformation-tracker-col'>";
             $text .= "<p>".get_string('submit_questionnaire', 'block_groupformation_tracker')."</p>";
             $text .= "</div>";
-            $text .= "<div class='col'>";
+            $text .= "<div class='col block-groupformation-tracker-col'>";
             $text .= $this->badgecontroller->get_go_to_user_overview_button
             ($this->groupformationcm, get_string('go_to_activity', 'block_groupformation_tracker'));
             $text .= "</div>";
         } else {
-            $text .= "<div class='col'>";
+            $text .= "<div class='col block-groupformation-tracker-col'>";
             $text .= "<p>".get_string('continue_answering', 'block_groupformation_tracker')."</p>";
             $text .= "</div>";
-            $text .= "<div class='col'>";
+            $text .= "<div class='col block-groupformation-tracker-col'>";
             $text .= $this->badgecontroller->get_go_to_questionnaire_button
             ($this->groupformationcm, get_string('to_questionnaire', 'block_groupformation_tracker'));
             $text .= "</div>";
@@ -384,19 +384,19 @@ class gfTracker_user_content_controller{
      */
     public function content_submitted($gfbool = false) {
 
-        $text = "<div class='col'>";
+        $text = "<div class='col block-groupformation-tracker-col'>";
         $text .= $this->badgecontroller->state_badge("submitted");
         $text .= "</div>";
         if ($gfbool) {
-            $text .= "<div class='col'>";
+            $text .= "<div class='col block-groupformation-tracker-col'>";
             $text .= "<p>".get_string('gf_started_wait_for_teacher', 'block_groupformation_tracker')."</p>";
             $text .= "</div>";
         }
-        $text .= "<div class='col'>";
+        $text .= "<div class='col block-groupformation-tracker-col'>";
         $text .= $this->badgecontroller->get_go_to_questionnaire_button
         ($this->groupformationcm, get_string('see_your_answers', 'block_groupformation_tracker'));
         $text .= "</div>";
-        $text .= "<div class='col'>";
+        $text .= "<div class='col block-groupformation-tracker-col'>";
         $text .= $this->badgecontroller->get_see_evaluation_button($this->groupformationcm);
         $text .= "</div>";
 
@@ -415,10 +415,10 @@ class gfTracker_user_content_controller{
     public function content_started_closed() {
 
         $dates = groupformation_get_dates($this->groupformationid);
-        $text = "<div class='col'>";
+        $text = "<div class='col block-groupformation-tracker-col'>";
         $text .= $this->badgecontroller->state_badge("closed");
         $text .= "</div>";
-        $text .= "<div class='col'>";
+        $text .= "<div class='col block-groupformation-tracker-col'>";
         if ($dates['start_raw'] < time()) {
             $text .= "<p>" . get_string('closed_wait_for_teacher', 'block_groupformation_tracker') . "</p>";
         } else {
@@ -438,10 +438,10 @@ class gfTracker_user_content_controller{
      */
     public function content_wait_gf_started($state = "closed") {
 
-        $text = "<div class='col'>";
+        $text = "<div class='col block-groupformation-tracker-col'>";
         $text .= $this->badgecontroller->state_badge($state);
         $text .= "</div>";
-        $text .= "<div class='col'>";
+        $text .= "<div class='col block-groupformation-tracker-col'>";
         $text .= "<p>".get_string('gf_started_wait_for_teacher', 'block_groupformation_tracker')."</p>";
         $text .= "</div>";
 
@@ -458,13 +458,13 @@ class gfTracker_user_content_controller{
     public function content_ga_done() {
         $text = "";
 
-        $text .= "<div class='col'>";
+        $text .= "<div class='col block-groupformation-tracker-col'>";
         $text .= $this->badgecontroller->state_badge("ga_done");
         $text .= "</div>";
 
         if (groupformation_has_group($this->groupformationid, $this->userid)) {
 
-            $text .= "<div class='col'>";
+            $text .= "<div class='col block-groupformation-tracker-col'>";
             $text .= "<p>".get_string('in_group', 'block_groupformation_tracker');
             $text .= " <b>";
             $text .= groupformation_get_group_name($this->groupformationid, $this->userid);
@@ -472,7 +472,7 @@ class gfTracker_user_content_controller{
             $text .= "</p>";
             $text .= "</div>";
 
-            $text .= "<div class='col'>";
+            $text .= "<div class='col block-groupformation-tracker-col'>";
             $members = groupformation_get_group_members($this->groupformationid, $this->userid);
             if (count($members) > 0) {
                 $text .= "<p>".get_string('your_groupmembers', 'block_groupformation_tracker');
@@ -482,13 +482,13 @@ class gfTracker_user_content_controller{
                 $text .= "<p>".get_string('alone_in_group', 'block_groupformation_tracker')."</p>";
             }
             $text .= "</div>";
-            $text .= "<div class='col'>";
+            $text .= "<div class='col block-groupformation-tracker-col'>";
             $text .= "<a href=\"".utilities::get_activity_url($this->groupformationid)
                 ."\" class=\"btn btn-outline-primary\" role=\"button\" aria-pressed=\"true\">"
                 .get_string("go_to_activity", "block_groupformation_tracker")."</a>";
             $text .= "</div>";
         } else {
-            $text .= "<div class='col'>";
+            $text .= "<div class='col block-groupformation-tracker-col'>";
             $text .= "<p>";
             $text .= get_string('did_not_answer', 'block_groupformation_tracker');
             $text .= "</p>";

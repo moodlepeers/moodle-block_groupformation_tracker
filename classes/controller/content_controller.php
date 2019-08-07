@@ -136,7 +136,7 @@ class gfTracker_content_controller{
         if (!(groupformation_get_instance_by_id($gfid) === false)) {
             // Shows an icon and the name of the groupformation at the top of the page.
             $gfinstance = groupformation_get_instance_by_id($gfid);
-            $text .= "<div class='col'>";
+            $text .= "<div class='col block-groupformation-tracker-col'>";
             if ($foruser) {
                 $text .= "<a href=\"/mod/groupformation/analysis_view.php?id="
                     .groupformation_get_cm($gfid)."&do_show=analysis\" class=\"block-groupformation-tracker-name-link\">";
@@ -153,10 +153,15 @@ class gfTracker_content_controller{
                 }
                 set_gf_tracked_for_user($userid, $gfid, $tracked);
             }
+            if ($tracked) {
+                $direction = 'up';
+            } else {
+                $direction = 'down';
+            }
 
-            $text .= $this->badgecontroller->get_tracker_button($buttonname, $this->courseid);
+            $text .= $this->badgecontroller->get_tracker_button($buttonname, $this->courseid, $direction);
             $text .= "<div class='block-groupformation-tracker-gfname'>";
-            $text .= "<h5>";
+            $text .= "<h5 class='block-groupformation-tracker-h5'>";
             $text .= $gfinstance->name;
             $text .= "</h5>";
             $text .= "</div>";
@@ -169,12 +174,13 @@ class gfTracker_content_controller{
 
 
             if (!$foruser) {
-                $text .= "<div class='col'><p>" . get_string('notforuser', 'block_groupformation_tracker') . "</p></div>";
+                $text .= "<div class='col block-groupformation-tracker-col'><p>" . get_string('notforuser', 'block_groupformation_tracker') . "</p></div>";
             } else if ($tracked) {
                 $controller = new gfTracker_user_content_controller($gfid, $userid);
                 $text .= $controller->get_content();
             }
         }
+        $text .= '</div>';
 
         return $text;
     }
@@ -195,7 +201,7 @@ class gfTracker_content_controller{
         if (!(groupformation_get_instance_by_id($gfid) === false)) {
             // Shows an icon and the name of the groupformation at the top of the page.
             $gfinstance = groupformation_get_instance_by_id($gfid);
-            $text .= "<div class='col'>";
+            $text .= "<div class='col block-groupformation-tracker-col'>";
             $text .= "<a href=\"/mod/groupformation/analysis_view.php?id="
                 .groupformation_get_cm($gfid)."&do_show=analysis\" class=\"block-groupformation-tracker-name-link\">";
 
@@ -211,11 +217,16 @@ class gfTracker_content_controller{
                 set_gf_tracked_for_teacher($gfid, $tracked);
             }
 
-            $text .= $this->badgecontroller->get_tracker_button($buttonname, $this->courseid);
+            if ($tracked) {
+                $direction = 'up';
+            } else {
+                $direction = 'down';
+            }
+            $text .= $this->badgecontroller->get_tracker_button($buttonname, $this->courseid, $direction);
 
             $text .= "<div class='block-groupformation-tracker-gfname'>";
-            $text .= "<h5>";
-            $text .= $gfinstance->name;
+            $text .= "<h5 class='block-groupformation-tracker-h5'>";
+            $text .= $gfinstance->name . 'dpuighapgpisdprgpii';
             $text .= "</h5>";
             $text .= "</div>";
             $text .= "</a>";
@@ -227,6 +238,7 @@ class gfTracker_content_controller{
                 $text .= $controller->get_content();
             }
         }
+        $text .= '</div>';
 
         return $text;
     }

@@ -226,7 +226,7 @@ class gfTracker_content_controller{
 
             $text .= "<div class='block-groupformation-tracker-gfname'>";
             $text .= "<h5 class='block-groupformation-tracker-h5'>";
-            $text .= $gfinstance->name . 'dpuighapgpisdprgpii';
+            $text .= $gfinstance->name;
             $text .= "</h5>";
             $text .= "</div>";
             $text .= "</a>";

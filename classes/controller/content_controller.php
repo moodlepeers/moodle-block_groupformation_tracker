@@ -161,11 +161,11 @@ class gfTracker_content_controller{
             }
 
             $text .= $this->badgecontroller->get_tracker_button($buttonname, $this->courseid, $direction);
-            $text .= "<div class='block-groupformation-tracker-gfname'>";
-            $text .= "<h5 class='block-groupformation-tracker-h5'>";
+            $text .= "<h5 class='block-groupformation-tracker-gfname'>";
+            //$text .= "<h5 class='block-groupformation-tracker-h5'>";
             $text .= $gfinstance->name;
             $text .= "</h5>";
-            $text .= "</div>";
+            //$text .= "</div>";
             if ($foruser) {
                 $text .= "</a>";
             }
@@ -226,11 +226,11 @@ class gfTracker_content_controller{
             }
             $text .= $this->badgecontroller->get_tracker_button($buttonname, $this->courseid, $direction);
 
-            $text .= "<div class='block-groupformation-tracker-gfname'>";
-            $text .= "<h5 class='block-groupformation-tracker-h5'>";
+            $text .= "<h5 class='block-groupformation-tracker-gfname'>";
+            //$text .= "<h5 class='block-groupformation-tracker-h5'>";
             $text .= $gfinstance->name;
             $text .= "</h5>";
-            $text .= "</div>";
+            //$text .= "</div>";
             $text .= "</a>";
 
             $text .= "</div>";

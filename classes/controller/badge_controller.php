@@ -100,7 +100,8 @@ class gfTracker_badge_controller{
      * @return string
      */
     public function get_go_to_questionnaire_button($gfcm, $string) {
-        $url = "/mod/groupformation/questionnaire_view.php?id=".$gfcm."&direction=1";
+        $url = new moodle_url('/mod/groupformation/questionnaire_view.php',array('id' => $gfcm, 'direction' => '1'));
+        //$url = "/mod/groupformation/questionnaire_view.php?id=".$gfcm."&direction=1";
 
         return  utilities::get_link_button($url, $string);
     }
@@ -114,7 +115,7 @@ class gfTracker_badge_controller{
      */
 
     public function get_go_to_groupformation_button($gfcm, $string) {
-        $url = "/mod/groupformation/grouping_view.php?id=".$gfcm."&do_show=grouping";
+        $url = new moodle_url('/mod/groupformation/grouping_view.php',array('id' => $gfcm, 'do_show' => 'grouping'));
 
         return  utilities::get_link_button($url, $string);
     }
@@ -126,9 +127,10 @@ class gfTracker_badge_controller{
      * @return string
      */
     public function get_go_to_overview_button($gfcm, $string) {
-        $url = "/mod/groupformation/analysis_view.php?id=".$gfcm."&do_show=analysis";
+        $url = new moodle_url('/mod/groupformation/analysis_view.php',array('id' => $gfcm, 'do_show' => 'analysis'));
+        //$url = "/mod/groupformation/analysis_view.php?id=".$gfcm."&do_show=analysis";
 
-        return  utilities::get_link_button($url, $string);
+        return  utilities::get_link_button($url->out(), $string);
     }
 
     /**
@@ -138,9 +140,10 @@ class gfTracker_badge_controller{
      * @return string
      */
     public function get_go_to_user_overview_button($gfcm, $string) {
-        $url = "/mod/groupformation/view.php?id=".$gfcm;
+        $url = new moodle_url('/mod/groupformation/view.php',array('id' => $gfcm));
+        //$url = "/mod/groupformation/view.php?id=".$gfcm;
 
-        return  utilities::get_link_button($url, $string);
+        return  utilities::get_link_button($url->out(), $string);
     }
 
     /**
@@ -150,10 +153,9 @@ class gfTracker_badge_controller{
      * @throws coding_exception
      */
     public function get_see_evaluation_button($groupformationcm) {
+        $url = new moodle_url('/mod/groupformation/evaluation_view.php',array('id' => $groupformationcm, 'do_show'=>'evaluation'));
 
-        $text = "<a href=\"/mod/groupformation/evaluation_view.php?id=";
-        $text .= $groupformationcm;
-        $text .= "&do_show=evaluation\" class=\"btn btn-outline-primary\" id=\"evaluation\" role=\"button\" aria-pressed=\"true\">"
+        $text = "<a href=\"".$url->out()."\" class=\"btn btn-outline-primary\" id=\"evaluation\" role=\"button\" aria-pressed=\"true\">"
             .get_string('see_evaluation', 'block_groupformation_tracker')."</a>";
 
         return $text;
@@ -181,12 +183,13 @@ class gfTracker_badge_controller{
     public function get_tracker_button($name, $courseid, $direction = 'up') {
 
         $icon = 'triangle-'. $direction.'.svg';
-        $text = '<form action="/course/view.php?id='.$courseid.'" method="post">';
+        $url = new moodle_url('/moodlevorkurs/course/view.php',['id'=>$courseid]);
+        $text = '<form action="'.$url->out().'" method="post">';
         $text .= '<button type="submit" name="'.$name.'" class="btn btn-outline-primary" style="background:url(/blocks/groupformation_tracker/images/'. $icon .')
-        center no-repeat; float: right; height: 20px; width: 20px; padding: 4px;"></button>';
+        center no-repeat; float: right; height: 20px; width: 20px; padding: 4px;">Hide/Show</button>';
         $text .= '</form>';
 
-        return $text;
+        return "";//$text;
 
         return $text;
     }

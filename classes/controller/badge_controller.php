@@ -103,7 +103,7 @@ class gfTracker_badge_controller{
         $url = new moodle_url('/mod/groupformation/questionnaire_view.php',array('id' => $gfcm, 'direction' => '1'));
         //$url = "/mod/groupformation/questionnaire_view.php?id=".$gfcm."&direction=1";
 
-        return  utilities::get_link_button($url, $string);
+        return  utilities::get_link_button($url->out(), $string);
     }
 
 
@@ -117,7 +117,7 @@ class gfTracker_badge_controller{
     public function get_go_to_groupformation_button($gfcm, $string) {
         $url = new moodle_url('/mod/groupformation/grouping_view.php',array('id' => $gfcm, 'do_show' => 'grouping'));
 
-        return  utilities::get_link_button($url, $string);
+        return  utilities::get_link_button($url->out(), $string);
     }
 
     /**

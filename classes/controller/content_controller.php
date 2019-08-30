@@ -138,8 +138,9 @@ class gfTracker_content_controller{
             $gfinstance = groupformation_get_instance_by_id($gfid);
             $text .= "<div class='col block-groupformation-tracker-col'>";
             if ($foruser) {
-                $text .= "<a href=\"/mod/groupformation/analysis_view.php?id="
-                    .groupformation_get_cm($gfid)."&do_show=analysis\" class=\"block-groupformation-tracker-name-link\">";
+                $url = new moodle_url('/mod/groupformation/analysis_view.php',array('id' => groupformation_get_cm($gfid), 'do_show'=>'analysis'));
+
+                $text .= "<a href=\"".$url->out()."\" class=\"block-groupformation-tracker-name-link\">";
             }
 
             $buttonname = 'tracker_button_gfid_'.$gfid.'_userid_'.$userid;
@@ -202,8 +203,9 @@ class gfTracker_content_controller{
             // Shows an icon and the name of the groupformation at the top of the page.
             $gfinstance = groupformation_get_instance_by_id($gfid);
             $text .= "<div class='col block-groupformation-tracker-col'>";
-            $text .= "<a href=\"/mod/groupformation/analysis_view.php?id="
-                .groupformation_get_cm($gfid)."&do_show=analysis\" class=\"block-groupformation-tracker-name-link\">";
+            $url = new moodle_url('/mod/groupformation/analysis_view.php',array('id' => groupformation_get_cm($gfid), 'do_show'=>'analysis'));
+
+            $text .= "<a href=\"".$url->out()."\" class=\"block-groupformation-tracker-name-link\">";
 
             $buttonname = 'tracker_button_teacher_gfid_'.$gfid;
             $tracker_button = optional_param($buttonname, null, PARAM_INT);
